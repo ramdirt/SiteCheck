@@ -1,4 +1,4 @@
-# Infokiosk - web
+# SiteCheck
 
 ## Getting started
 
