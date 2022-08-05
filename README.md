@@ -22,7 +22,6 @@ To make containers work you should be able to call the `composer` and have neces
 
 ```shell
 composer install
-npm install
 ```
 
 Run containers:
@@ -38,4 +37,10 @@ sail npm ci
 sail php artisan key:generate
 sail php artisan migrate:refresh --seed
 sail npm run dev
+```
+
+error config db
+
+```shell
+sail down --rmi all -v
 ```
