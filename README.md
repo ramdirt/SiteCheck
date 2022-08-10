@@ -33,7 +33,7 @@ sail up -d
 Finish installation:
 
 ```shell
-sail npm ci
+sail npm ci --force
 sail php artisan key:generate
 sail php artisan migrate:refresh --seed
 sail npm run dev
