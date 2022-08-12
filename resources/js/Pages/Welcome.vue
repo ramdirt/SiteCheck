@@ -30,6 +30,7 @@ main.container.px-12.max-w-6xl
       .md_mr-4.w-96
         h1.text-4xl.mt-4.text-white Сервис мониторинга работы сайтов
         p.text-bg.text-gray-200.mt-4 В этом сервисе вы сможете настроить проверку на работоспособность страниц сайтов
+        Button.mt-4(:to="route('login')", type="primary") Начать пользоваться
 </template>
 
 <style scoped>
