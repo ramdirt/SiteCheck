@@ -7,7 +7,10 @@ import { InertiaProgress } from "@inertiajs/progress";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 import Breeze from "@/Plugins/Breeze";
+
+// Locale
 import ViewUIPlus from "view-ui-plus";
+import locale from 'view-ui-plus/dist/locale/ru-RU';
 import "view-ui-plus/dist/styles/viewuiplus.css";
 
 const appName =
@@ -28,7 +31,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .use(Breeze)
-            .use(ViewUIPlus)
+            .use(ViewUIPlus, { locale })
             .component("Head", Head)
             .mount(el);
     },
