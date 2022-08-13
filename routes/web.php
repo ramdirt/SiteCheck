@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Mail\ReportShipped;
+use App\Services\ReportService;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +27,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/push_mail', function () {
+    $report = new ReportService();
+    $report->sendMail('ramrimi@yandex.ru', new ReportShipped);
+    return "push mail";
+});
+
 
 require __DIR__ . '/auth.php';
