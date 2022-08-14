@@ -42,6 +42,9 @@ jobs:
           sed -i "s/DB_DATABASE=site_check/DB_DATABASE=${{ secrets.db_name }}/" .env
           sed -i "s/DB_USERNAME=sail/DB_USERNAME=${{ secrets.db_login }}/" .env
           sed -i "s/DB_PASSWORD=password/DB_PASSWORD=${{ secrets.db_password }}/" .env
+          sed -i "s/MAIL_HOST=mailhog/MAIL_HOST=${{ secrets.mail_host }}/" .env
+          sed -i "s/MAIL_USERNAME=null/MAIL_USERNAME=${{ secrets.mail_username }}/" .env
+          sed -i "s/MAIL_PASSWORD=null/MAIL_PASSWORD=${{ secrets.mail_password }}/" .env
 
       - name: синхронизация файлов с хостингом
         run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . "${{ secrets.login }}@${{ secrets.host }}:${{ secrets.path_site }}" --exclude node_modules/
