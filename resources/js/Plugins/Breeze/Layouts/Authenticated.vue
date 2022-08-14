@@ -1,10 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import BreezeApplicationLogo from "@/Components/ApplicationLogo.vue";
-import BreezeDropdown from "@/Components/Dropdown.vue";
-import BreezeDropdownLink from "@/Components/DropdownLink.vue";
-import BreezeNavLink from "@/Components/NavLink.vue";
-import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 const showingNavigationDropdown = ref(false);
@@ -15,13 +10,15 @@ const showingNavigationDropdown = ref(false);
     <div class="min-h-screen bg-gray-100">
       <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="container px-4">
           <div class="flex justify-between h-16">
             <div class="flex">
               <!-- Logo -->
               <div class="shrink-0 flex items-center">
                 <Link :href="route('dashboard')">
-                  <h2>SiteCheck</h2>
+                  <h2>
+                    <img src='/images/sitecheck.svg' alt='SiteCheck'>
+                  </h2>
                 </Link>
               </div>
             </div>

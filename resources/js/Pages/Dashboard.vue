@@ -1,5 +1,4 @@
 <script setup>
-import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 </script>
 
 <template lang="pug">
