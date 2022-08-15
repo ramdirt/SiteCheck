@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use App\Mail\ReportShipped;
 use App\Services\ReportService;
+use App\Services\TelegramBotService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
@@ -29,15 +30,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/bot', function () {
-    $token = env('TG_TOKEN');
-    $method = 'sendMessage';
-    $params = [
-        'chat_id' => 1053678973,
-        'text' => 'Привет'
-    ];
-    $url = "https://api.tlgr.org/bot{$token}/{$method}";
-    \Illuminate\Support\Facades\Http::post($url, $params);
-    return "send message";
+    $bot = new TelegramBotService();
+    $bot->sendMessage('1053678973', view('telegram.report'));
+    return 'send message';
 });
 
 
