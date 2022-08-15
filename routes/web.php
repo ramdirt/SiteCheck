@@ -29,4 +29,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::vxeController(\App\Http\Controllers\SiteController::class);
+
 require __DIR__ . '/auth.php';
