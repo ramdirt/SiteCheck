@@ -28,5 +28,17 @@ Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/bot', function () {
+    $token = env('TG_TOKEN');
+    $method = 'sendMessage';
+    $params = [
+        'chat_id' => 1053678973,
+        'text' => 'Привет'
+    ];
+    $url = "https://api.tlgr.org/bot{$token}/{$method}";
+    \Illuminate\Support\Facades\Http::post($url, $params);
+    return "send message";
+});
+
 
 require __DIR__ . '/auth.php';
