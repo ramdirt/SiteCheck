@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use App\Mail\ReportShipped;
 use App\Services\ReportService;
+use App\Services\TelegramBotService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
@@ -27,6 +28,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/bot', function () {
+    $bot = new TelegramBotService();
+    $bot->sendMessage('1053678973', view('telegram.report'));
+    return 'send message';
+});
 
 
 Route::vxeController(\App\Http\Controllers\SiteController::class);
