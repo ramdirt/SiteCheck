@@ -1,115 +1,92 @@
 <template lang='pug'>
-Head(title="Sites Layout")
+Head(title="Сайты")
 
 BreezeAuthenticatedLayout
-    .container
-        Card.mb-4.rounded-xl
-            h3.mb-4.text-lg.font-semibold Добавить сайт
+    .container.mt-4.lg__flex.lg__space-x-6
+        section
+            Card.relative.mb-4.rounded-xl(class='w-[30rem]')
+                h3.mb-4.text-lg.font-semibold Добавить сайт
 
-        h3.mb-4.mx-4.text-lg.font-semibold Добавленные сайты
-        Table(
-            :columns='columns'
-            :data='data'
-            :loading='loading'
-        )
+                Form(ref='addForm' :model='form' :rules='rules')
+                    FormItem(prop='name')
+                        Input(placeholder='Введите название сайта' v-model='form.name')
+                    FormItem(prop='url')
+                        Input(placeholder='https://example.com' v-model='form.url')
+                    //- FormItem(prop='tests')
+                        Select(placeholder='Введите название сайта')
+                            Option(v-for='')
+
+                    .flex.justify-end
+                        Button(type='primary' @click='addSite("addForm")') Добавить
+
+        section.w-full
+            Card.relative.mb-4.rounded-xl
+                h3.mb-4.mx-4.text-lg.font-semibold Добавленные сайты
+
+                Table(
+                    :columns='columns'
+                    :data='data'
+                    :loading='loading'
+                )
 </template>
 
 <script>
-// TODO remove 'items' and get 'data' from server
-const items = [
-    { path: 'site-common.com', tests: 10, accepted: 4 },
-    { path: 'site-common.com', tests: 10, accepted: 5 },
-    { path: 'www.google.com', tests: 10, accepted: 8 },
-    { path: 'site-common.com', tests: 10, accepted: 7 },
-    { path: 'www.google.com', tests: 10, accepted: 9 },
-    { path: 'site-common.com', tests: 10, accepted: 3},
-    { path: 'site-common.com', tests: 10, accepted: 6 },
-    { path: 'gihub.com', tests: 10, accepted: 1 },
-    { path: 'site-common.com', tests: 10, accepted: 2 },
-    { path: 'www.google.com', tests: 10, accepted: 10 },
-];
+import axios from 'axios';
+import tableMixin from './mixins/sitesTable';
 
 export default {
     name: 'SitesLayout',
+    mixins: [tableMixin],
+
     data() {
         return {
             loading: false,
-            columns: [
-                {
-                    title: 'Адрес',
-                    key: 'path',
-                    sortable: true,
-                    render: (h, { row }) => {
-                        return h('div',
-                            {
-                                class: 'flex items-center space-x-2',
-                            },
-                            [
-                                h('div', {
-                                    style: {
-                                        background: this.rowAcceptColorClass(row.accepted, row.tests)
-                                    },
-                                    class: 'w-8 h-8 rounded-full'
-                                }),
-                                h('a', {
-                                    href: row.path,
-                                    target: '_blank'
-                                }, row.path)
-                            ]
-                        );
-                    }
-                },
-                {
-                    title: 'Состояние',
-                    key: 'accepted',
-                    sortable: true,
-                    render: (h, { row }) => {
-                        return h('div', [
-                            h('span', `Успешных проверок ${row.accepted} из ${row.tests}`),
-                        ]);
-                    }
-                },
-                {
-                    title: ' ',
-                    key: 'action',
-                    fixed: 'right',
-                    width: 160,
-                    render: (h, params) => {
-                        return h('div', [
-                            h('a', {
-                                args: {
-                                    // TODO route
-                                    href: route('')
-                                }
-                            }, 'Подробнее...'),
-                        ]);
-                    }
-                },
-            ],
-            data: items
+            data: [],
+
+            form: {
+                name: '',
+                url: ''
+            },
+            rules: {
+                name: [ {required: true} ],
+                url: [ {required: true} ]
+            }
         }
     },
+
+    created() {
+        this.loadSites();
+    },
+
     methods: {
         loadSites() {
+            this.loading = true;
 
+            const params = {
+                // TODO Pagination, filtering, sorting
+            };
+
+            axios.get('site', params)
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.data = response.data.data;
+                    }
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
 
         addSite() {
+            const body = this.form;
 
-        },
-
-        rowAcceptColorClass(accepted, tests) {
-            const paletDiff = [[510, 0, 0], [0, 510, 0]];
-
-            if (accepted > tests) accepted = tests;
-
-            const dr = paletDiff[0][0] - ((paletDiff[0][0] - paletDiff[1][0]) * accepted / tests);
-            const dg = paletDiff[0][1] - ((paletDiff[0][1] - paletDiff[1][1]) * accepted / tests);
-
-            const r = dr > 255 ? 255 : dr;
-            const g = dg > 255 ? 255 : dg;
-
-            return `rgb(${r}, ${g}, 0)`;
+            axios.post('site/update', { body })
+                .then(() => {
+                    this.loadSites();
+                })
+                .catch(() => {
+                    this.loading = false;
+                });
         }
     }
 }
