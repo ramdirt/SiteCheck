@@ -45,6 +45,7 @@ jobs:
           sed -i "s/MAIL_HOST=mailhog/MAIL_HOST=${{ secrets.mail_host }}/" .env
           sed -i "s/MAIL_USERNAME=null/MAIL_USERNAME=${{ secrets.mail_username }}/" .env
           sed -i "s/MAIL_PASSWORD=null/MAIL_PASSWORD=${{ secrets.mail_password }}/" .env
+          sed -i "s/TG_TOKEN=/TG_TOKEN=${{ secrets.tg_token }}/" .env
 
       - name: синхронизация файлов с хостингом
         run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . "${{ secrets.login }}@${{ secrets.host }}:${{ secrets.path_site }}" --exclude node_modules/
