@@ -51,7 +51,6 @@ export default {
                 {
                     title: ' ',
                     key: 'action',
-                    fixed: 'right',
                     width: 160,
                     render: (h, params) => {
                         return h('div', [
