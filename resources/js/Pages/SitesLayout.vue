@@ -2,28 +2,32 @@
 Head(title="Сайты")
 
 BreezeAuthenticatedLayout
-    .container
-        Card.relative.mb-4.rounded-xl(class='max-w-[30rem]')
-            h3.mb-4.text-lg.font-semibold Добавить сайт
+    .container.mt-4.lg__flex.lg__space-x-6
+        section
+            Card.relative.mb-4.rounded-xl(class='w-[30rem]')
+                h3.mb-4.text-lg.font-semibold Добавить сайт
 
-            Form(ref='addForm' :model='form' :rules='rules')
-                FormItem(prop='name')
-                    Input(placeholder='Введите название сайта' v-model='form.name')
-                FormItem(prop='url')
-                    Input(placeholder='https://example.com' v-model='form.url')
-                //- FormItem(prop='tests')
-                    Select(placeholder='Введите название сайта')
-                        Option(v-for='')
+                Form(ref='addForm' :model='form' :rules='rules')
+                    FormItem(prop='name')
+                        Input(placeholder='Введите название сайта' v-model='form.name')
+                    FormItem(prop='url')
+                        Input(placeholder='https://example.com' v-model='form.url')
+                    //- FormItem(prop='tests')
+                        Select(placeholder='Введите название сайта')
+                            Option(v-for='')
 
-                .flex.justify-end
-                    Button(type='primary' @click='addSite("addForm")') Добавить
+                    .flex.justify-end
+                        Button(type='primary' @click='addSite("addForm")') Добавить
 
-        h3.mb-4.mx-4.text-lg.font-semibold Добавленные сайты
-        Table(
-            :columns='columns'
-            :data='data'
-            :loading='loading'
-        )
+        section.w-full
+            Card.relative.mb-4.rounded-xl
+                h3.mb-4.mx-4.text-lg.font-semibold Добавленные сайты
+
+                Table(
+                    :columns='columns'
+                    :data='data'
+                    :loading='loading'
+                )
 </template>
 
 <script>
