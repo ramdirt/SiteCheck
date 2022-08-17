@@ -36,4 +36,6 @@ Route::get('/bot', function () {
 });
 
 
+Route::vxeController(\App\Http\Controllers\SiteController::class);
+
 require __DIR__ . '/auth.php';

@@ -1,5 +1,4 @@
 <script setup>
-
 </script>
 
 <template>
@@ -16,13 +15,13 @@
   >
     <div>
       <Link href="/">
-        <BreezeApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+        <img src="/images/sitecheck.svg" alt="SiteCheck" />
       </Link>
     </div>
 
     <div
       class="
-        w-full
+        max-w-md
         sm:max-w-md
         mt-6
         px-6
