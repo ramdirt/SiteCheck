@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Mail\ReportShipped;
-use Illuminate\Support\Facades\Mail;
 use App\Services\Contract\Report;
+use App\Services\TelegramBotService;
+use Illuminate\Support\Facades\Mail;
 
 class ReportService implements Report
 {
@@ -13,8 +13,9 @@ class ReportService implements Report
         Mail::to($mail)->queue($template);
     }
 
-    public function sendMessageTelegram(string $login)
+    public function sendMessageTelegram(string $telegram_id, object $template)
     {
-        // TODO: Написать сервис для работы с ботом телеграма
+        $bot = new TelegramBotService;
+        $bot->sendMessage($telegram_id, $template);
     }
 }
