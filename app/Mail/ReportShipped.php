@@ -16,9 +16,12 @@ class ReportShipped extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    protected $data;
+
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +31,8 @@ class ReportShipped extends Mailable
      */
     public function build()
     {
-        return $this->from(ENV('MAIL_USERNAME'), 'SiteCheckReport')->view('emails.report')->subject('Отчет мониторинга');
+        return $this->from(ENV('MAIL_USERNAME'), 'SiteCheckReport')->view('emails.report')->with([
+            'data' => $this->data
+        ])->subject('Отчет мониторинга');
     }
 }

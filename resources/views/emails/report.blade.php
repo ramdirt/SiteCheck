@@ -1,16 +1,18 @@
 <div>
-    <h1>Отчет мониторинга</h1>
-    <h2>Сайт #1</h2>
-    <p>Успешно пройденные тесты: 10 из 10</p>
-    <p>Проблем не обнаружено</p>
-    <br>
+    <b>Отчет мониторинга</b>
+    @forelse($data as $site)
+        <i>{{ $site['name'] }}</i>
+        @forelse($site['pages'] as $page)
+            @if ($page['status'])
+                <a href="{{ $site['url'] . $page['path'] }}">{{ $page['name'] }}{{ hex2bin('E29C85') }}</a>
+            @else
+                <a href="{{ $site['url'] . $page['path'] }}">{{ $page['name'] }}{{ hex2bin('E29D8C') }}</a>
+            @endif
+        @empty
+            <p>Данных нет, проверьте сайт</p>
+        @endforelse
 
-    <h2>Сайт #2</h2>
-    <p>Успешно пройденные тесты: 8 из 10</p>
-    <p>Обнаружены проблемы:</p>
-    <ul>
-        <li>
-            Страница /price не отвечает
-        </li>
-    </ul>
+    @empty
+        <p>Данных нет, проверьте сайт</p>
+    @endforelse
 </div>
