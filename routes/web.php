@@ -29,6 +29,26 @@ Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/bot', function () {
+    $data = [
+        [
+            'name' => 'site 1',
+            'url' => 'http://google.com',
+            'pages' => [
+                [
+                    'name' => 'user',
+                    'path' => '/',
+                    'status' => true
+                ]
+            ]
+        ]
+    ];
+    $report = new ReportService();
+    $report->sendReportTelegram(1053678973, $data);
+
+    return 'send bot';
+});
+
 
 Route::vxeController(\App\Http\Controllers\SiteController::class);
 

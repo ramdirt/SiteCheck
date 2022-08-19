@@ -2,20 +2,18 @@
 
 namespace App\Services;
 
-use App\Services\Contract\Report;
-use App\Services\TelegramBotService;
+use App\Jobs\TelegramSendingProcess;
 use Illuminate\Support\Facades\Mail;
 
-class ReportService implements Report
+class ReportService
 {
-    public function sendMail(string $mail, object $template)
+    public function sendReportMail(string $mail, object $template)
     {
         Mail::to($mail)->queue($template);
     }
 
-    public function sendMessageTelegram(string $telegram_id, object $template)
+    public function sendReportTelegram(int $chat_id, array $data)
     {
-        $bot = new TelegramBotService;
-        $bot->sendMessage($telegram_id, $template);
+        dispatch(new TelegramSendingProcess($chat_id, $data));
     }
 }

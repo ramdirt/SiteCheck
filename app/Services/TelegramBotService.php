@@ -2,21 +2,39 @@
 
 namespace App\Services;
 
-use App\Services\Contract\TelegramBot;
+use Illuminate\Support\Facades\Http;
 
-class TelegramBotService implements TelegramBot
+class TelegramBotService
 {
-    public function sendMessage(string $login, object $template)
+    private ?int $chat_id = NULL;
+    private ?array $data = NULL;
+
+    public function setChatId(int $chat_id): object
+    {
+        $this->chat_id = $chat_id;
+
+        return $this;
+    }
+
+    public function setData(array $data): object
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function sendReport(): object
     {
         $token = env('TG_TOKEN');
-        $method = 'sendMessage';
         $params = [
-            'chat_id' => $login,
-            'text' => $template->render(),
+            'chat_id' => $this->chat_id,
+            'text' => view('telegram.report', ['data' => $this->data])->render(),
             'parse_mode' => 'html'
         ];
-        $url = "https://api.tlgr.org/bot{$token}/{$method}";
-        \Illuminate\Support\Facades\Http::post($url, $params);
-        return $template;
+        $url = "https://api.tlgr.org/bot{$token}/sendMessage";
+
+        Http::post($url, $params);
+
+        return $this;
     }
 };
