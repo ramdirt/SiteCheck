@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "291e7a4f0617d0d51b3e00b101d41a3f",
+    "content-hash": "afe366643ee46da5d6d89619a1570111",
     "packages": [
         {
             "name": "42sol/laravel-vxe-controller",
