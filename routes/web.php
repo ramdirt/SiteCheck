@@ -1,12 +1,15 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Mail\ReportShipped;
 use App\Services\ReportService;
 use App\Services\AccessTestService;
 use App\Services\TelegramBotService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +33,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
 
 
-Route::get('/test', function () {
-    $test = new AccessTestService();
-    $status = $test->setURL('vk.com')->run();
-    dd($status);
-});
 
 
 Route::vxeController(\App\Http\Controllers\SiteController::class);
