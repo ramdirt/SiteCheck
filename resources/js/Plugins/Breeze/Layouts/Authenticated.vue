@@ -10,14 +10,14 @@ const showingNavigationDropdown = ref(false);
     <div class="min-h-screen bg-gray-100">
       <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="container px-4">
+        <div class="container px-4 max-w-md">
           <div class="flex justify-between h-16">
             <div class="flex">
               <!-- Logo -->
               <div class="shrink-0 flex items-center">
                 <Link :href="route('dashboard')">
                   <h2>
-                    <img src='/images/sitecheck.svg' alt='SiteCheck'>
+                    <img src="/images/sitecheck.svg" alt="SiteCheck" />
                   </h2>
                 </Link>
               </div>
@@ -137,14 +137,32 @@ const showingNavigationDropdown = ref(false);
             block: showingNavigationDropdown,
             hidden: !showingNavigationDropdown,
           }"
-          class="sm:hidden"
+          class="sm:hidden container max-w-md mb-2"
         >
-          <div class="pt-2 pb-3 space-y-1">
+          <div class="pt-2 space-y-1">
             <BreezeResponsiveNavLink
               :href="route('dashboard')"
               :active="route().current('dashboard')"
             >
-              Dashboard
+              Сайты
+            </BreezeResponsiveNavLink>
+          </div>
+
+          <div class="pt-2 space-y-1">
+            <BreezeResponsiveNavLink
+              :href="route('setting.index')"
+              :active="route().current('setting.index')"
+            >
+              Настройки
+            </BreezeResponsiveNavLink>
+          </div>
+
+          <div class="pt-2 space-y-1">
+            <BreezeResponsiveNavLink
+              :href="route('plans.index')"
+              :active="route().current('plans.index')"
+            >
+              Тарифные планы
             </BreezeResponsiveNavLink>
           </div>
 
@@ -165,7 +183,7 @@ const showingNavigationDropdown = ref(false);
                 method="post"
                 as="button"
               >
-                Log Out
+                Выйти
               </BreezeResponsiveNavLink>
             </div>
           </div>

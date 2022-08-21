@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'interval',
+        'paid'
     ];
 
     /**
@@ -48,9 +50,5 @@ class User extends Authenticatable
 
     public function limit() {
         return $this->hasOne(Limit::class);
-    }
-
-    public function schedule() {
-        return $this->hasMany(Schedule::class);
     }
 }

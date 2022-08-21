@@ -1,10 +1,16 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Mail\ReportShipped;
 use App\Services\ReportService;
+use App\Services\AccessTestService;
+use App\Services\TelegramBotService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\PlansController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +34,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/push_mail', function () {
-    $report = new ReportService();
-    $report->sendMail('ramrimi@yandex.ru', new ReportShipped);
-    return "push mail";
-});
+Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
+Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
 
 /**
  * Array of routes containing
