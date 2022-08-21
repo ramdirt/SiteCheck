@@ -157,6 +157,15 @@ const showingNavigationDropdown = ref(false);
             </BreezeResponsiveNavLink>
           </div>
 
+          <div class="pt-2 space-y-1">
+            <BreezeResponsiveNavLink
+              :href="route('plans.index')"
+              :active="route().current('plans.index')"
+            >
+              Тарифные планы
+            </BreezeResponsiveNavLink>
+          </div>
+
           <!-- Responsive Settings Options -->
           <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
