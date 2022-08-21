@@ -34,7 +34,10 @@ Route::get('/push_mail', function () {
     return "push mail";
 });
 
-
+/**
+ * Array of routes containing
+ * GET
+ */
 Route::vxeController(\App\Http\Controllers\SiteController::class);
 
 require __DIR__ . '/auth.php';
