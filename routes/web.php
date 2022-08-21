@@ -1,11 +1,16 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Mail\ReportShipped;
 use App\Services\ReportService;
+use App\Services\AccessTestService;
 use App\Services\TelegramBotService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\PlansController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,27 +34,13 @@ Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/bot', function () {
-    $data = [
-        [
-            'name' => 'site 1',
-            'url' => 'http://google.com',
-            'pages' => [
-                [
-                    'name' => 'user',
-                    'path' => '/',
-                    'status' => true
-                ]
-            ]
-        ]
-    ];
-    $report = new ReportService();
-    $report->sendReportTelegram(1053678973, $data);
+Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
+Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
 
-    return 'send bot';
-});
-
-
+/**
+ * Array of routes containing
+ * GET
+ */
 Route::vxeController(\App\Http\Controllers\SiteController::class);
 
 require __DIR__ . '/auth.php';

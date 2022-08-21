@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class Log extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-      'site_id',
-      'name',
-      'url'
+        'log_time',
+        'check_id',
+        'status',
+        'speed'
     ];
 
-    public function checks() {
-        return $this->hasMany(Check::class);
+    public function check() {
+        return $this->belongsTo(Check::class);
     }
 }
