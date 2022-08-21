@@ -37,7 +37,10 @@ Route::get('/dashboard', function () {
 Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
 Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
 
-
+/**
+ * Array of routes containing
+ * GET
+ */
 Route::vxeController(\App\Http\Controllers\SiteController::class);
 
 require __DIR__ . '/auth.php';

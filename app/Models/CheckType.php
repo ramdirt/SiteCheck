@@ -5,17 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class CheckType extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-      'site_id',
-      'name',
-      'url'
+      'name'
     ];
-
-    public function checks() {
-        return $this->hasMany(Check::class);
-    }
 }

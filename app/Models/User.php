@@ -43,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sites() {
+        return $this->belongsToMany(Site::class);
+    }
+
+    public function limit() {
+        return $this->hasOne(Limit::class);
+    }
 }

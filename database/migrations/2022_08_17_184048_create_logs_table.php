@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Site::class);
-            $table->string('name');
-            $table->string('url');
+            $table->dateTime('log_time');
+            $table->foreignIdFor(\App\Models\Check::class)->constrained();
+            $table->boolean('status');
+            $table->integer('speed');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('logs');
     }
 };
