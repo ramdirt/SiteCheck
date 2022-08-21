@@ -9,6 +9,7 @@ use App\Services\TelegramBotService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\PlansController;
 use App\Http\Controllers\SettingController;
 
 /*
@@ -34,8 +35,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
-
-
+Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
 
 
 Route::vxeController(\App\Http\Controllers\SiteController::class);

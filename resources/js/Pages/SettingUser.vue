@@ -22,7 +22,11 @@ BreezeAuthenticatedLayout
               ) {{ item.label }}
 
           .flex.justify-end
-            Button(type="primary", @click="submit") Добавить
+            Button(
+              type="primary",
+              @click="submit",
+              :disabled="form.processing"
+            ) Обновить
 </template>
 
 <script setup>
