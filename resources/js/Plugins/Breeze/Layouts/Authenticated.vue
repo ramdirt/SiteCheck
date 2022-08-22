@@ -1,8 +1,16 @@
 <script setup>
-import { ref } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { ref, computed } from "vue";
+import { Link, usePage } from "@inertiajs/inertia-vue3";
 
 const showingNavigationDropdown = ref(false);
+
+const user = usePage().props.value.auth.user;
+
+const status = computed(() => {
+  return user.paid === 0 ? "PRO" : "Free";
+});
+
+const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
 </script>
 
 <template>
@@ -10,7 +18,7 @@ const showingNavigationDropdown = ref(false);
     <div class="min-h-screen bg-gray-100">
       <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="container px-4 max-w-md">
+        <div class="container px-4 max-w-4xl">
           <div class="flex justify-between h-16">
             <div class="flex">
               <!-- Logo -->
@@ -20,6 +28,10 @@ const showingNavigationDropdown = ref(false);
                     <img src="/images/sitecheck.svg" alt="SiteCheck" />
                   </h2>
                 </Link>
+              </div>
+              <div class="flex flex-col items-start self-center ml-3">
+                <h2>Тариф: {{ status }}</h2>
+                <p>Оплачено до {{ paid_up_to }}</p>
               </div>
             </div>
 

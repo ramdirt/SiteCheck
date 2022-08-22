@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'interval',
-        'paid'
+        'paid',
+        'paid_up_to'
     ];
 
     /**
@@ -44,11 +45,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sites() {
+    public function sites()
+    {
         return $this->belongsToMany(Site::class);
     }
 
-    public function limit() {
+    public function limit()
+    {
         return $this->hasOne(Limit::class);
     }
 }

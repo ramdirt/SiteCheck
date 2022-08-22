@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -74,9 +75,14 @@ class PlansController extends Controller
             'paid' => ['required'],
         ]);
 
+
         $validated = $request->only('paid');
 
+        $time = Carbon::now()->addMonths(1)->format('Y-m-d');
+        $validated['paid_up_to'] = $time;
+
         $user = User::find($id);
+
 
         $user->update($validated);
 
