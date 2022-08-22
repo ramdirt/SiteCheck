@@ -2,19 +2,23 @@
 Head(title="Сайты")
 
 BreezeAuthenticatedLayout
+  .container.mt-4(v-if='$parentSiteDetails')
+    h2.text-semibold.text-lg.text-gray-700 {{$parentSiteDetails.name }}
+    strong.text-gray-500 {{$parentSiteDetails.url }}
+
   .container.mt-4.lg__flex.lg__space-x-6
     section
       Card.relative.mb-4.rounded-xl(class="w-[30rem]")
-        h3.mb-4.text-lg.font-semibold Добавить сайт
+        h3.mb-4.text-lg.font-semibold Добавить страницу
 
         Form(ref="addForm" :model="form" :rules="rules")
           FormItem(prop="name")
-            Input(placeholder="Введите название сайта" v-model="form.name")
+            Input(placeholder="Введите название страницы" v-model="form.name")
           FormItem(prop="url")
-            Input(placeholder="https://example.com" v-model="form.url")
+            Input(placeholder="page" v-model="form.url")
 
           .flex.justify-end
-            Button(type="primary" @click="addSite('addForm')") Добавить
+            Button(type="primary" @click="addPage('addForm')") Добавить
 
     section.w-full
       Card.relative.mb-4.rounded-xl
@@ -25,10 +29,10 @@ BreezeAuthenticatedLayout
 
 <script>
 import axios from "axios";
-import tableMixin from "./mixins/sitesTable";
+import tableMixin from "./mixins/pagesTable";
 
 export default {
-  name: "SitesLayout",
+  name: "PagesLayout",
   mixins: [tableMixin],
 
   data() {
@@ -47,12 +51,18 @@ export default {
     };
   },
 
+  computed: {
+    $parentSiteDetails() {
+      return this.$attrs.$parentSiteDetails;
+    }
+  },
+
   created() {
-    this.loadSites();
+    this.loadPages();
   },
 
   methods: {
-    loadSites() {
+    loadPages() {
       this.loading = true;
 
       const params = {
@@ -60,7 +70,7 @@ export default {
       };
 
       axios
-        .get("site", params)
+        .get("/page", params)
         .then((response) => {
           if (response.status === 200) {
             this.data = response.data.data;
@@ -71,11 +81,12 @@ export default {
         });
     },
 
-    addSite() {
+    addPage() {
       const body = this.form;
+      body.site_id = this.$parentSiteDetails.id;
 
       axios
-        .post("site/update", { body })
+        .post("/page/update", { body })
         .then(() => {
           this.loadSites();
         })
