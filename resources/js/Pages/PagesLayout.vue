@@ -22,7 +22,10 @@ BreezeAuthenticatedLayout
 
     section.w-full
       Card.relative.mb-4.rounded-xl
-        h3.mb-4.mx-4.text-lg.font-semibold Добавленные сайты
+        h3.mb-4.text-lg.font-semibold Добавленные сайты
+
+        .my-2
+          Button(type='primary' ghost icon='md-refresh' @click='loadPages')
 
         Table(:columns="columns" :data="data" :loading="loading")
 </template>
