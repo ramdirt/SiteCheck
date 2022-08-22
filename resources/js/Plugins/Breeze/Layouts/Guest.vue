@@ -1,38 +1,15 @@
 <script setup>
 </script>
 
-<template>
-  <div
-    class="
-      min-h-screen
-      flex flex-col
-      sm:justify-center
-      items-center
-      pt-6
-      sm:pt-0
-      bg-gray-100
-    "
-  >
-    <div>
-      <Link href="/">
-        <img src="/images/sitecheck.svg" alt="SiteCheck" />
-      </Link>
-    </div>
-
-    <div
-      class="
-        max-w-md
-        sm:max-w-md
-        mt-6
-        px-6
-        py-4
-        bg-white
-        shadow-md
-        overflow-hidden
-        sm:rounded-lg
-      "
-    >
-      <slot />
-    </div>
-  </div>
+<template lang="pug">
+.min-h-screen.flex.flex-col.items-center.pt-6.bg-gray-100(
+  class="sm:justify-center sm:pt-0"
+)
+  div
+    link(href="/")
+    img(src="/images/sitecheck.svg", alt="SiteCheck")
+  .max-w-md.mt-6.px-6.py-4.bg-white.shadow-md.overflow-hidden(
+    class="sm:max-w-md sm:rounded-lg"
+  )
+    slot
 </template>
