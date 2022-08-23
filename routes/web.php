@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,13 @@ Route::get('/dashboard', function () {
     return Inertia::render('SitesLayout');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/sitepages/{id}', function ($id) {
+    $props = [
+        '$parentSiteDetails' => SiteController::getSiteDetails($id)
+    ];
+    return Inertia::render('PagesLayout', $props);
+})->middleware(['auth', 'verified'])->name('sitepages');
+
 Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
 Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
 
@@ -41,6 +50,7 @@ Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified
  * Array of routes containing
  * GET
  */
-Route::vxeController(\App\Http\Controllers\SiteController::class);
+Route::vxeController(SiteController::class);
+Route::vxeController(PageController::class);
 
 require __DIR__ . '/auth.php';

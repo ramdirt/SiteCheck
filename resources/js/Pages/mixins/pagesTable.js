@@ -1,5 +1,3 @@
-import { Link } from '@inertiajs/inertia-vue3';
-
 export default {
     data() {
         return {
@@ -7,7 +5,7 @@ export default {
 
                 // NAME COLUMN
                 {
-                    title: 'Сайт',
+                    title: 'Страницы',
                     key: 'name',
                     sortable: true,
                     render: (h, { row }) => {
@@ -47,25 +45,7 @@ export default {
                             h('span', `Нет данных о проверках`),
                         ]);
                     }
-                },
-
-                // ACTION COLUMN
-                {
-                    title: ' ',
-                    key: 'action',
-                    width: 160,
-                    render: (h, { row }) => {
-                        return h('div', [
-                            h(Link, {
-                                // TODO route
-                                href: route('sitepages', row.id)
-                            }, () => [
-                                h('span', 'Подробнее...')
-                            ]),
-                        ]);
-                    }
                 }
-
             ]
         }
     },
