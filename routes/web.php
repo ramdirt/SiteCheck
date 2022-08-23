@@ -32,9 +32,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('/sites', function () {
     return Inertia::render('SitesLayout');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('sites');
 
 Route::get('/sitepages/{id}', function ($id) {
     $props = [
