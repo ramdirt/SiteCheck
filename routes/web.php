@@ -43,14 +43,14 @@ Route::controller(\App\Http\Controllers\SiteController::class)->group(function (
      */
     Route::get('/sites', 'index');
     /**
-     * Save page
+     * Save site
      * @param $request[
      *   'page' = model
      * ]
      */
     Route::post('/site/update', 'update');
     /**
-     * Delete page
+     * Delete site
      * @param $request[
      *  'id' = $modelId
      * ]
@@ -60,7 +60,7 @@ Route::controller(\App\Http\Controllers\SiteController::class)->group(function (
 
 Route::controller(\App\Http\Controllers\PageController::class)->group(function () {
     /**
-     * Get all pages
+     * Get all pages for specific site
      */
     Route::get('/pages/{site_id}', 'index');
     /**
@@ -83,21 +83,21 @@ Route::controller(\App\Http\Controllers\CheckController::class)->group(function 
     /**
      * Get all checks for specific page
      */
-    Route::get('/pages/{site_id}', 'index');
+    Route::get('/check/{page_id}', 'index');
     /**
-     * Save page
+     * Save check
      * @param $request[
-     *   'page' = model
+     *   'check' = model
      * ]
      */
-    Route::post('/page/update', 'update');
+    Route::post('/check/update', 'update');
     /**
-     * Delete page
+     * Delete chek
      * @param $request[
      *  'id' = $modelId
      * ]
      */
-    Route::delete('/page/delete');
+    Route::delete('/check/delete');
 });
 
 require __DIR__ . '/auth.php';

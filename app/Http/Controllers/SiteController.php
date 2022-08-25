@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class SiteController extends Controller
 {
     /**
-     * Get all sites for specific site
+     * Get all sites or specific site
      *
      * @param Request $request
      * @return JsonResponse
@@ -41,7 +41,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Save new page or update existing
+     * Save new site or update existing
      *
      * @param Request $request
      * @return JsonResponse
@@ -60,7 +60,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Delete page
+     * Delete site
      *
      * @param Request $request
      * @return JsonResponse
