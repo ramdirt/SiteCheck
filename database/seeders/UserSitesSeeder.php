@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class SiteSeeder extends Seeder
+class UserSitesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +15,9 @@ class SiteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sites')->insert([
-            'name' => 'SiteForTesting1',
-            'url' => 'site_for_testing',
-        ]);
-        DB::table('sites')->insert([
-            'name' => 'Darknet',
-            'url' => 'deep_dark_network',
+        DB::table('user_sites')->insert([
+            'user_id' => 1,
+            'site_id' => 1,
         ]);
     }
 }

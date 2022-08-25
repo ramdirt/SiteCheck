@@ -34,11 +34,29 @@ Route::get('/push_mail', function () {
     return "push mail";
 });
 
-/**
- * Array of routes containing
- * GET
- */
-Route::vxeController(\App\Http\Controllers\SiteController::class);
+
+Route::controller(\App\Http\Controllers\SiteController::class)->group(function () {
+    /**
+     * Get all sites or specific site
+     * @param $request[] - for all sites,
+     * @param $request[ 'site_id' = id ] - for specific site
+     */
+    Route::get('/sites', 'index');
+    /**
+     * Save page
+     * @param $request[
+     *   'page' = model
+     * ]
+     */
+    Route::post('/site/update', 'update');
+    /**
+     * Delete page
+     * @param $request[
+     *  'id' = $modelId
+     * ]
+     */
+    Route::delete('/site/delete');
+});
 
 Route::controller(\App\Http\Controllers\PageController::class)->group(function () {
     /**
@@ -58,7 +76,7 @@ Route::controller(\App\Http\Controllers\PageController::class)->group(function (
      *  'id' = $modelId
      * ]
      */
-    Route::delete('/page');
+    Route::delete('/page/delete');
 });
 
 Route::controller(\App\Http\Controllers\CheckController::class)->group(function () {
@@ -79,7 +97,7 @@ Route::controller(\App\Http\Controllers\CheckController::class)->group(function 
      *  'id' = $modelId
      * ]
      */
-    Route::delete('/page');
+    Route::delete('/page/delete');
 });
 
 require __DIR__ . '/auth.php';

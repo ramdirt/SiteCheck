@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\Site;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -16,13 +17,20 @@ class PageController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $siteId = $request->get('site_id');
-        return new JsonResponse([
-            'status' => true,
-            'pages' => Page::query()
-                ->where('site_id', '=', $siteId)
-                ->get()
-        ]);
+        if ($request->has('site_id')) {
+            $siteId = $request->get('site_id');
+            return new JsonResponse([
+                'status' => true,
+                'sites' => Page::query()
+                    ->where('site_id', '=', $siteId)
+                    ->get()
+            ]);
+        } else {
+            return new JsonResponse([
+                'status' => true,
+                'sites' => Site::all()
+            ]);
+        }
     }
 
     /**
