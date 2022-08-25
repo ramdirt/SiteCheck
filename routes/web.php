@@ -40,4 +40,46 @@ Route::get('/push_mail', function () {
  */
 Route::vxeController(\App\Http\Controllers\SiteController::class);
 
+Route::controller(\App\Http\Controllers\PageController::class)->group(function () {
+    /**
+     * Get all pages
+     */
+    Route::get('/pages/{site_id}', 'index');
+    /**
+     * Save page
+     * @param $request[
+     *   'page' = model
+     * ]
+     */
+    Route::post('/page/update', 'update');
+    /**
+     * Delete page
+     * @param $request[
+     *  'id' = $modelId
+     * ]
+     */
+    Route::delete('/page');
+});
+
+Route::controller(\App\Http\Controllers\CheckController::class)->group(function () {
+    /**
+     * Get all checks for specific page
+     */
+    Route::get('/pages/{site_id}', 'index');
+    /**
+     * Save page
+     * @param $request[
+     *   'page' = model
+     * ]
+     */
+    Route::post('/page/update', 'update');
+    /**
+     * Delete page
+     * @param $request[
+     *  'id' = $modelId
+     * ]
+     */
+    Route::delete('/page');
+});
+
 require __DIR__ . '/auth.php';
