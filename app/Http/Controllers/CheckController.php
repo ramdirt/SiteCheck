@@ -2,39 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Page;
-use App\Models\Site;
+use App\Models\Check;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class CheckController extends Controller
 {
     /**
-     * Get all pages for specific site
+     * Get all checks for specific page
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
-        if ($request->has('site_id')) {
-            $siteId = $request->get('site_id');
-            return new JsonResponse([
-                'status' => true,
-                'sites' => Page::query()
-                    ->where('site_id', '=', $siteId)
-                    ->get()
-            ]);
-        } else {
-            return new JsonResponse([
-                'status' => true,
-                'sites' => Site::all()
-            ]);
-        }
+        $pageId = $request->get('page_id');
+        return new JsonResponse([
+            'status' => true,
+            'pages' => Check::query()
+                ->where('page_id', '=', $pageId)
+                ->get()
+        ]);
     }
 
     /**
-     * Save new page or update existing
+     * Create new check or update existing
      *
      * @param Request $request
      * @return JsonResponse
@@ -43,7 +35,7 @@ class PageController extends Controller
     {
         $page = $request->get('page');
 
-        Page::query()->updateOrCreate([
+        Check::query()->updateOrCreate([
             'id' => $page['id']
         ], [
             $page
@@ -53,7 +45,7 @@ class PageController extends Controller
     }
 
     /**
-     * Delete page
+     * Delete check
      *
      * @param Request $request
      * @return JsonResponse
@@ -61,7 +53,7 @@ class PageController extends Controller
     public function delete(Request $request): JsonResponse
     {
         $id = $request->get('id');
-        Page::query()->whereKey($id)->delete();
+        Check::query()->whereKey($id)->delete();
 
         return new JsonResponse(['status' => true]);
     }

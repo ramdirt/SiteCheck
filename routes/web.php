@@ -46,11 +46,69 @@ Route::get('/sitepages/{id}', function ($id) {
 Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
 Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
 
-/**
- * Array of routes containing
- * GET
- */
-Route::vxeController(SiteController::class);
-Route::vxeController(PageController::class);
+Route::controller(\App\Http\Controllers\SiteController::class)->group(function () {
+    /**
+     * Get all sites or specific site
+     * @param $request[] - for all sites,
+     * @param $request[ 'site_id' = id ] - for specific site
+     */
+    Route::get('/sites', 'index');
+    /**
+     * Save site
+     * @param $request[
+     *   'page' = model
+     * ]
+     */
+    Route::post('/site/update', 'update');
+    /**
+     * Delete site
+     * @param $request[
+     *  'id' = $modelId
+     * ]
+     */
+    Route::delete('/site/delete');
+});
+
+Route::controller(\App\Http\Controllers\PageController::class)->group(function () {
+    /**
+     * Get all pages for specific site
+     */
+    Route::get('/pages/{site_id}', 'index');
+    /**
+     * Save page
+     * @param $request[
+     *   'page' = model
+     * ]
+     */
+    Route::post('/page/update', 'update');
+    /**
+     * Delete page
+     * @param $request[
+     *  'id' = $modelId
+     * ]
+     */
+    Route::delete('/page/delete');
+});
+
+Route::controller(\App\Http\Controllers\CheckController::class)->group(function () {
+    /**
+     * Get all checks for specific page
+     */
+    Route::get('/check/{page_id}', 'index');
+    /**
+     * Save check
+     * @param $request[
+     *   'check' = model
+     * ]
+     */
+    Route::post('/check/update', 'update');
+    /**
+     * Delete chek
+     * @param $request[
+     *  'id' = $modelId
+     * ]
+     */
+    Route::delete('/check/delete');
+});
 
 require __DIR__ . '/auth.php';
