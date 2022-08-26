@@ -1,8 +1,16 @@
 <script setup>
-import { ref } from "vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { ref, computed } from "vue";
+import { Link, usePage } from "@inertiajs/inertia-vue3";
 
 const showingNavigationDropdown = ref(false);
+
+const user = usePage().props.value.auth.user;
+
+const status = computed(() => {
+  return user.paid === 0 ? "PRO" : "Free";
+});
+
+const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
 </script>
 
 <template>
@@ -10,16 +18,20 @@ const showingNavigationDropdown = ref(false);
     <div class="min-h-screen bg-gray-100">
       <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="container px-4">
+        <div class="container px-4 max-w-4xl">
           <div class="flex justify-between h-16">
             <div class="flex">
               <!-- Logo -->
               <div class="shrink-0 flex items-center">
-                <Link :href="route('dashboard')">
+                <Link :href="route('sites')">
                   <h2>
-                    <img src='/images/sitecheck.svg' alt='SiteCheck'>
+                    <img src="/images/sitecheck.svg" alt="SiteCheck" />
                   </h2>
                 </Link>
+              </div>
+              <div class="flex flex-col items-start self-center ml-3">
+                <h2>Тариф: {{ status }}</h2>
+                <p>Оплачено до {{ paid_up_to }}</p>
               </div>
             </div>
 
@@ -137,14 +149,32 @@ const showingNavigationDropdown = ref(false);
             block: showingNavigationDropdown,
             hidden: !showingNavigationDropdown,
           }"
-          class="sm:hidden"
+          class="sm:hidden container max-w-md mb-2"
         >
-          <div class="pt-2 pb-3 space-y-1">
+          <div class="pt-2 space-y-1">
             <BreezeResponsiveNavLink
-              :href="route('dashboard')"
-              :active="route().current('dashboard')"
+              :href="route('sites')"
+              :active="route().current('sites')"
             >
-              Dashboard
+              Сайты
+            </BreezeResponsiveNavLink>
+          </div>
+
+          <div class="pt-2 space-y-1">
+            <BreezeResponsiveNavLink
+              :href="route('setting.index')"
+              :active="route().current('setting.index')"
+            >
+              Настройки
+            </BreezeResponsiveNavLink>
+          </div>
+
+          <div class="pt-2 space-y-1">
+            <BreezeResponsiveNavLink
+              :href="route('plans.index')"
+              :active="route().current('plans.index')"
+            >
+              Тарифные планы
             </BreezeResponsiveNavLink>
           </div>
 
@@ -165,7 +195,7 @@ const showingNavigationDropdown = ref(false);
                 method="post"
                 as="button"
               >
-                Log Out
+                Выйти
               </BreezeResponsiveNavLink>
             </div>
           </div>

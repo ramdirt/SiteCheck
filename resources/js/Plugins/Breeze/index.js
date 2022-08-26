@@ -1,5 +1,4 @@
 import {
-    BreezeApplicationLogo,
     BreezeButton,
     BreezeCheckbox,
     BreezeDropdown,
@@ -19,7 +18,6 @@ import {
 
 export default {
     install(Vue) {
-        Vue.component('BreezeApplicationLogo', BreezeApplicationLogo);
         Vue.component('BreezeButton', BreezeButton);
         Vue.component('BreezeCheckbox', BreezeCheckbox);
         Vue.component('BreezeDropdown', BreezeDropdown);

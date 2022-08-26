@@ -1,4 +1,3 @@
-import BreezeApplicationLogo from './ApplicationLogo';
 import BreezeButton from './Button';
 import BreezeCheckbox from './Checkbox';
 import BreezeDropdown from './Dropdown';
@@ -11,7 +10,6 @@ import BreezeResponsiveNavLink from './ResponsiveNavLink';
 import BreezeValidationErrors from './ValidationErrors';
 
 export {
-    BreezeApplicationLogo,
     BreezeButton,
     BreezeCheckbox,
     BreezeDropdown,

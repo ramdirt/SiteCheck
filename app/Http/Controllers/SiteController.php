@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
-    /**
-     * Get all sites or specific site
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function index(Request $request): JsonResponse
     {
         if ($request->has('site_id')) {

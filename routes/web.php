@@ -1,10 +1,18 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Mail\ReportShipped;
 use App\Services\ReportService;
+use App\Services\AccessTestService;
+use App\Services\TelegramBotService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\PlansController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +32,19 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('/sites', function () {
     return Inertia::render('SitesLayout');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('sites');
 
-Route::get('/push_mail', function () {
-    $report = new ReportService();
-    $report->sendMail('ramrimi@yandex.ru', new ReportShipped);
-    return "push mail";
-});
+Route::get('/sitepages/{id}', function ($id) {
+    $props = [
+        '$parentSiteDetails' => SiteController::getSiteDetails($id)
+    ];
+    return Inertia::render('PagesLayout', $props);
+})->middleware(['auth', 'verified'])->name('sitepages');
 
+Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
+Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
 
 Route::controller(\App\Http\Controllers\SiteController::class)->group(function () {
     /**
