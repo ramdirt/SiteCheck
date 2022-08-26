@@ -19,11 +19,13 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
+            'interval' => 5,
             'is_admin' => true,
         ]);
         DB::table('users')->insert([
             'name' => 'user',
             'email' => 'user@user.com',
+            'interval' => 15,
             'password' => bcrypt('user'),
         ]);
     }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Site;
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Queries\QueryBuilderSites;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -47,7 +49,9 @@ class SiteController extends Controller
             'url' => 'required',
         ]);
 
-        $site = Site::create([
+        $user_id = Auth::user()->id;
+
+        $site = User::find($user_id)->sites()->create([
             'name' => $request->name,
             'url' => $request->url,
             'last_check' => NULL,
