@@ -23,7 +23,7 @@ const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
             <div class="flex">
               <!-- Logo -->
               <div class="shrink-0 flex items-center">
-                <Link :href="route('sites')">
+                <Link to="/">
                   <h2>
                     <img src="/images/sitecheck.svg" alt="SiteCheck" />
                   </h2>
@@ -153,8 +153,8 @@ const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
         >
           <div class="pt-2 space-y-1">
             <BreezeResponsiveNavLink
-              :href="route('sites')"
-              :active="route().current('sites')"
+              :href="route('sites.index')"
+              :active="route().current('sites.index')"
             >
               Сайты
             </BreezeResponsiveNavLink>

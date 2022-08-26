@@ -11,14 +11,18 @@ class Site extends Model
 
     protected $fillable = [
         'name',
-        'url'
+        'url',
+        'last_check',
+        'status',
     ];
 
-    public function pages() {
+    public function pages()
+    {
         return $this->hasMany(Page::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsToMany(User::class, 'user_sites');
     }
 }
