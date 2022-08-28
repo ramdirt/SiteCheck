@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('telegram_id')->nullable();
             $table->integer('interval')->default(1);
             $table->boolean('paid')->default(false);
             $table->timestamp('paid_up_to')->nullable();

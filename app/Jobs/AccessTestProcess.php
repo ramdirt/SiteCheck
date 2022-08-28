@@ -14,15 +14,15 @@ class AccessTestProcess implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public string $url;
+    public object $site;
 
-    public function __construct(string $url)
+    public function __construct(object $site)
     {
-        $this->url = $url;
+        $this->site = $site;
     }
 
     public function handle(AccessTestService $test)
     {
-        $test->setURL($this->url)->run();
+        $test->setSite($this->site)->run();
     }
 }
