@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use App\Models\Site;
 use App\Models\User;
+use App\Jobs\AccessTestProcess;
+use App\Services\ReportService;
 
 
 class Overseer
@@ -17,8 +20,8 @@ class Overseer
             foreach ($user->sites as $site) {
                 $this->userSites[] = [
                     'user_id' => $user->id,
+                    'site_id' => $site->id,
                     'interval' => $user->interval,
-                    'url' => $site->url,
                     'last_check' => $site->last_check,
                 ];
             }
@@ -30,11 +33,21 @@ class Overseer
     public function CreateTaskForReview()
     {
         $carbon = new Carbon();
+        $report = new ReportService();
 
         foreach ($this->userSites as $userSite) {
             $last_check = $carbon->parse($userSite['last_check']);
             $allowable_time = $last_check->addMinutes($userSite['interval']);
-            dd($carbon::parse($userSite['last_check'])->addMinutes($userSite['interval'])->between($last_check, $allowable_time));
+
+            if ($carbon->now()->gt($allowable_time)) {
+                $site = Site::find($userSite['site_id']);
+                dispatch(new AccessTestProcess($site));
+            }
         }
+
+        $user = User::find($userSite['user_id']);
+        $report->setUser($user)->generateReport()->sendReportMail();
+
+        return true;
     }
 }
