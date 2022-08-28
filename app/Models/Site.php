@@ -16,6 +16,11 @@ class Site extends Model
         'status',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function pages()
     {
         return $this->hasMany(Page::class);
