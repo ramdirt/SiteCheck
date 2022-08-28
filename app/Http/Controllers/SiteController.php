@@ -3,17 +3,110 @@
 namespace App\Http\Controllers;
 
 use App\Models\Site;
-use VxeController\Http\Controller\VxeController;
+use App\Models\User;
+use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Queries\QueryBuilderSites;
+use Illuminate\Support\Facades\Auth;
 
-class SiteController extends VxeController
+class SiteController extends Controller
 {
-    public static function getSiteDetails($id)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(QueryBuilderSites $sites)
     {
-        return Site::find($id);
+        return Inertia::render(
+            'SitesLayout',
+            [
+                'sites' => $sites->getSites()
+            ]
+        );
     }
 
-    public function model(): string
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        return Site::class;
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'url' => 'required',
+        ]);
+
+        $user_id = Auth::user()->id;
+
+        $site = User::find($user_id)->sites()->create([
+            'name' => $request->name,
+            'url' => $request->url,
+            'last_check' => NULL,
+            'status' => false
+        ]);
+
+        if (Site::where('url', '=', $request->url)) {
+            return redirect()->route('sites.index')->with('success', 'Запись успешно добавлена');
+        }
+
+        return back()->with('error', 'Ошибка добавления');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

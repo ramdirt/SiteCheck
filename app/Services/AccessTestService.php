@@ -2,30 +2,37 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class AccessTestService
 {
-    protected string $url;
+    protected object $site;
 
-    public function setURL(string $url)
+    public function setSite(object $site)
     {
-        $this->url = $url;
+        $this->site = $site;
 
         return $this;
     }
 
     public function run()
     {
-        $check_dns = checkdnsrr($this->url);
+        $check_dns = checkdnsrr($this->site->url);
+        $carbon = new Carbon();
 
         if ($check_dns === true) {
-            $response = Http::retry(3, 500, throw: false)->get($this->url);
+            $response = Http::retry(3, 500, throw: false)->get($this->site->url);
             if ($response->status() === 200) {
-                return true;
+                $this->site->status = true;
             }
         } else {
-            return false;
+            $this->site->status = false;
         }
+
+        $this->site->last_check = $carbon->now();
+        $this->site->update();
+
+        return true;
     }
 }

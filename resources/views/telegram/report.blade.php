@@ -1,11 +1,11 @@
 <b>Отчет мониторинга</b>
 @forelse($data as $site)
-    <i>{{ $site['name'] }}</i>
+    <a href="{{ $site['url'] }}">{{ $site['name'] }}</a>
     @forelse($site['pages'] as $page)
         @if ($page['status'])
-            <a href="{{ $site['url'] . $page['path'] }}">{{ $page['name'] }}{{ hex2bin('E29C85') }}</a>
+            {{ $page['name'] }}{{ hex2bin('E29C85') }}
         @else
-            <a href="{{ $site['url'] . $page['path'] }}">{{ $page['name'] }}{{ hex2bin('E29D8C') }}</a>
+            {{ $page['name'] }}{{ hex2bin('E29D8C') }}
         @endif
     @empty
         <p>Данных нет, проверьте сайт</p>

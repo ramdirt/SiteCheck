@@ -15,7 +15,7 @@ header.container.max-w-6xl.px-12
       div(v-if="canLogin", class="sm:block")
         Link.text-sm.text-gray-700.underline(
           v-if="$page.props.auth.user",
-          :href="route('sites')"
+          :href="route('sites.index')"
         ) Личный кабинет
         div(v-else)
           Link.text-sm.text-gray-700.underline(:href="route('login')") Авторизоваться

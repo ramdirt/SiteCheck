@@ -7,85 +7,79 @@ BreezeAuthenticatedLayout
       Card.relative.mb-4.rounded-xl(class="w-[30rem]")
         h3.mb-4.text-lg.font-semibold Добавить сайт
 
-        Form(ref="addForm" :model="form" :rules="rules")
+        Form(:model="form", :rules="rules")
           FormItem(prop="name")
-            Input(placeholder="Введите название сайта" v-model="form.name")
+            Input(placeholder="Введите название сайта", v-model="form.name")
           FormItem(prop="url")
-            Input(placeholder="https://example.com" v-model="form.url")
+            Input(placeholder="https://example.com", v-model="form.url")
 
           .flex.justify-end
-            Button(type="primary" @click="addSite('addForm')") Добавить
+            Button(type="primary", @click="submit") Добавить
 
     section.w-full
       Card.relative.mb-4.rounded-xl
         h3.mb-4.text-lg.font-semibold Добавленные сайты
 
-        .my-2
-          Button(type='primary' ghost icon='md-refresh' @click='loadSites')
-
-        Table(:columns="columns" :data="data" :loading="loading")
+        Table(:columns="table.columns", :data="table.data")
 </template>
 
-<script>
-import axios from "axios";
-import tableMixin from "./mixins/sitesTable";
+<script setup>
+import { useForm, usePage, Link } from "@inertiajs/inertia-vue3";
 
-export default {
-  name: "SitesLayout",
-  mixins: [tableMixin],
+const props = usePage().props.value;
 
-  data() {
-    return {
-      loading: false,
-      data: [],
+const user = props.auth.user;
+const sites = props.sites;
 
-      form: {
-        name: "",
-        url: "",
-      },
-      rules: {
-        name: [{ required: true }],
-        url: [{ required: true }],
-      },
-    };
-  },
-
-  created() {
-    this.loadSites();
-  },
-
-  methods: {
-    loadSites() {
-      this.loading = true;
-
-      const params = {
-        // TODO Pagination, filtering, sorting
-      };
-
-      axios
-        .get("site", params)
-        .then((response) => {
-          if (response.status === 200) {
-            this.data = response.data.data;
-          }
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+const table = {
+  columns: [
+    {
+      title: "Статус",
+      key: "status",
     },
-
-    addSite() {
-      const body = this.form;
-
-      axios
-        .post("site/update", { body })
-        .then(() => {
-          this.loadSites();
-        })
-        .catch(() => {
-          this.loading = false;
-        });
+    {
+      title: "Название",
+      key: "name",
     },
-  },
+    {
+      title: "Последняя проверка",
+      key: "last_check",
+    },
+    {
+      title: "Подробнее",
+      key: "detail",
+      render: (h, { row }) => {
+        return h("div", [
+          h(
+            Link,
+            {
+              // TODO: Указать правильный роут когда будет контроллер с страницами
+              href: route("sites.index", { id: row.id }),
+            },
+            () => [h("span", "Подробнее...")]
+          ),
+        ]);
+      },
+    },
+  ],
+  data: sites,
+};
+
+const form = useForm({
+  name: "",
+  url: "",
+});
+
+const rules = {
+  name: [{ required: true }],
+  email: [{ required: true }],
+};
+
+const submit = () => {
+  form.post(route("sites.store"), {
+    onSuccess: () => {
+      console.log("успешно отправлено");
+    },
+  });
 };
 </script>

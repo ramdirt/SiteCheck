@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
+            $table->boolean('status')->nullable();
+            $table->timestamp('last_check')->nullable();
             $table->timestamps();
         });
     }

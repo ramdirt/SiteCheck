@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SiteSeeder extends Seeder
 {
@@ -15,13 +17,26 @@ class SiteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sites')->insert([
-            'name' => 'SiteForTesting1',
-            'url' => 'http://site_for_testing',
+        $date = new Carbon;
+
+        User::find(1)->sites()->create([
+            'name' => 'Вконтакте',
+            'url' => 'vk.com',
+            'last_check' => $date->now(),
+            'status' => true
         ]);
-        DB::table('sites')->insert([
-            'name' => 'Darknet',
-            'url' => 'http://deep_dark_network',
+
+        User::find(1)->sites()->create([
+            'name' => 'Одноклассники',
+            'url' => 'ok.ru',
+            'last_check' => $date->now(),
+            'status' => false
+        ]);
+        User::find(1)->sites()->create([
+            'name' => 'Ютуб',
+            'url' => 'youtube.com',
+            'last_check' => $date->now(),
+            'status' => false
         ]);
     }
 }
