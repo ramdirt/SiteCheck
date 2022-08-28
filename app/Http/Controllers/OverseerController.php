@@ -11,6 +11,8 @@ class OverseerController extends Controller
     {
         $overseer = new Overseer();
         $overseer->GetListOfUserSitesToCheck()->CreateTaskForReview();
-        return 'overseer hello';
+        return [
+            'status' => true
+        ];
     }
 }
