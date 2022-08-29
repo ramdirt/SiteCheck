@@ -12,6 +12,8 @@ BreezeAuthenticatedLayout
             Input(placeholder="Имя", v-model="form.name")
           FormItem(label="Почта для получения отчетов")
             Input(placeholder="Электронная почта", v-model="form.email")
+          FormItem(label="ID Телеграм для получения отчетов")
+            Input(placeholder="Электронная почта", v-model="form.telegram_id")
           FormItem(label="Интервал проверки")
             Select(v-model="form.interval")
               Option(
@@ -38,6 +40,7 @@ const form = useForm({
   name: user.name,
   email: user.email,
   interval: user.interval,
+  telegram_id: user.telegram_id,
 });
 
 const rules = {
