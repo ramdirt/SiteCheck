@@ -2,9 +2,9 @@
 Head(title="Сайты")
 
 BreezeAuthenticatedLayout
-  .container.mt-4.lg__flex.lg__space-x-6
-    section
-      Card.relative.mb-4.rounded-xl(class="w-[30rem]")
+  .container.mt-4.lg__flex.lg__space-x-8
+    section.w-96
+      Card.relative.mb-4.rounded-xl
         h3.mb-4.text-lg.font-semibold Добавить сайт
 
         Form(:model="form", :rules="rules")
@@ -15,6 +15,10 @@ BreezeAuthenticatedLayout
 
           .flex.justify-end
             Button(type="primary", @click="submit") Добавить
+      Card.relative.mb-4.rounded-xl
+        h3.text-lg.font-semibold Запустить проверку
+        p.mb-2 для всех пользователей
+        Button(type="success", @click="start_check") Запустить
 
     section.w-full
       Card.relative.mb-4.rounded-xl
@@ -35,7 +39,16 @@ const table = {
   columns: [
     {
       title: "Статус",
+      width: 90,
       key: "status",
+      render: (h, { row }) => {
+        return h("div", {
+          style: {
+            background: color_status(row.status),
+          },
+          class: "w-8 h-4 rounded-full border",
+        });
+      },
     },
     {
       title: "Название",
@@ -73,6 +86,18 @@ const form = useForm({
 const rules = {
   name: [{ required: true }],
   email: [{ required: true }],
+};
+
+const start_check = () => {
+  return axios.get(route("overseer"));
+};
+
+const color_status = (status) => {
+  if (status !== 1) {
+    return "rgb(239 68 68)";
+  } else {
+    return "rgb(34 197 94)";
+  }
 };
 
 const submit = () => {
