@@ -46,7 +46,7 @@ class Overseer
         }
 
         $user = User::find($userSite['user_id']);
-        $report->setUser($user)->generateReport()->sendReportMail();
+        $report->setUser($user)->generateReport()->sendReportTelegram();
 
         return true;
     }
