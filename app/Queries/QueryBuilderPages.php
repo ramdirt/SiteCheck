@@ -12,12 +12,18 @@ class QueryBuilderPages implements QueryBuilder
         return Page::query();
     }
 
+    public function getPagesToSiteById(int $id)
+    {
+        return Page::where('site_id', $id)->get();
+    }
+
     public function getPageById(int $id)
     {
         return Page::select(['id', 'name', 'url', 'status', 'last_check'])->findOrFail($id);
     }
 
-    public function deletePage(int $id) {
+    public function deletePage(int $id)
+    {
         return Page::query()->whereKey($id)->delete();
     }
 }

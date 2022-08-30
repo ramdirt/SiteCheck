@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('admin'),
             'interval' => 5,
             'is_admin' => true,
+            'telegram_id' => 1053678973
         ]);
         DB::table('users')->insert([
             'name' => 'user',

@@ -38,5 +38,11 @@ class SiteSeeder extends Seeder
             'last_check' => $date->now()->subMinutes(30),
             'status' => false
         ]);
+        User::find(1)->sites()->create([
+            'name' => 'Авиа белеты',
+            'url' => 'travel.yandex.ru/avia/',
+            'last_check' => $date->now()->subMinutes(30),
+            'status' => false
+        ]);
     }
 }

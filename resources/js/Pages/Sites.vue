@@ -11,7 +11,7 @@ BreezeAuthenticatedLayout
           FormItem(prop="name")
             Input(placeholder="Введите название сайта", v-model="form.name")
           FormItem(prop="url")
-            Input(placeholder="https://example.com", v-model="form.url")
+            Input(placeholder="example.com", v-model="form.url")
 
           .flex.justify-end
             Button(type="primary", @click="submit") Добавить
@@ -67,7 +67,7 @@ const table = {
             Link,
             {
               // TODO: Указать правильный роут когда будет контроллер с страницами
-              href: route("sites.index", { id: row.id }),
+              href: route("sites.show", { id: row.id }),
             },
             () => [h("span", "Подробнее...")]
           ),

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Site::class);
             $table->string('name');
-            $table->string('url');
+            $table->string('path');
             $table->timestamps();
         });
     }
