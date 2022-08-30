@@ -15,6 +15,11 @@ class Page extends Model
       'url'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function checks() {
         return $this->hasMany(Check::class);
     }

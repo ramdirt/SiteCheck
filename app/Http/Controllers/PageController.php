@@ -4,65 +4,108 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use App\Models\Site;
-use Illuminate\Http\JsonResponse;
+use App\Queries\QueryBuilderPages;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PageController extends Controller
 {
     /**
-     * Get all pages for specific site
+     * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @return \Inertia\Response
      */
-    public function index(Request $request): JsonResponse
+    public function index(QueryBuilderPages $pages, $id)
     {
-        if ($request->has('site_id')) {
-            $siteId = $request->get('site_id');
-            return new JsonResponse([
-                'status' => true,
-                'sites' => Page::query()
-                    ->where('site_id', '=', $siteId)
-                    ->get()
-            ]);
-        } else {
-            return new JsonResponse([
-                'status' => true,
-                'sites' => Site::all()
-            ]);
-        }
+        return Inertia::render(
+            'PageLayout',
+            [
+                'page' => $pages->getPageById($id)
+            ]
+        );
     }
 
     /**
-     * Save new page or update existing
+     * Show the form for creating a new resource.
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request): JsonResponse
+    public function create()
     {
-        $page = $request->get('page');
+        //
+    }
 
-        Page::query()->updateOrCreate([
-            'id' => $page['id']
-        ], [
-            $page
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'site_id' => 'required',
+            'name' => 'required',
+            'url' => 'required',
         ]);
 
-        return new JsonResponse(['status' => true]);
+        $site_id = $request->get('site_id');
+
+        $page = Site::find($site_id)->pages()->create([
+            'name' => $request->name,
+            'url' => $request->url,
+            'site_id' => $site_id,
+        ]);
+
+        if (Page::where('url', '=', $request->url)) {
+            return redirect()->route('pages.index')->with('success', 'Запись успешно добавлена');
+        }
+
+        return back()->with('error', 'Ошибка добавления');
     }
 
     /**
-     * Delete page
+     * Display the specified resource.
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @param  int  $id
+     * @return \Inertia\Response
      */
-    public function delete(Request $request): JsonResponse
+    public function show(QueryBuilderPages $sites, $id)
     {
-        $id = $request->get('id');
-        Page::query()->whereKey($id)->delete();
+       //
+    }
 
-        return new JsonResponse(['status' => true]);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(QueryBuilderPages $pages,$id)
+    {
+        $pages->deletePage($id);
     }
 }
