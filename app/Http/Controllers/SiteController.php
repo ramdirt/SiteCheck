@@ -6,6 +6,7 @@ use App\Models\Site;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Queries\QueryBuilderPages;
 use App\Queries\QueryBuilderSites;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,10 +19,12 @@ class SiteController extends Controller
      */
     public function index(QueryBuilderSites $sites)
     {
+        $user_id = Auth::user()->id;
+
         return Inertia::render(
-            'SitesLayout',
+            'Sites',
             [
-                'sites' => $sites->getSites()
+                'sites' => $sites->getSitesUserById($user_id),
             ]
         );
     }
@@ -51,7 +54,7 @@ class SiteController extends Controller
 
         $user_id = Auth::id();
 
-        $site = User::find($user_id)->sites()->create([
+        User::find($user_id)->sites()->create([
             'name' => $request->name,
             'url' => $request->url,
             'last_check' => NULL,
@@ -71,12 +74,12 @@ class SiteController extends Controller
      * @param  int  $id
      * @return \Inertia\Response
      */
-    public function show(QueryBuilderSites $sites, $id)
+    public function show(QueryBuilderPages $pages, $id)
     {
         return Inertia::render(
-            'SitesLayout',
+            'Pages',
             [
-                'site' => $sites->getSiteById($id)
+                'pages' => $pages->getPagesToSiteById($id)
             ]
         );
     }

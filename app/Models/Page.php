@@ -10,9 +10,9 @@ class Page extends Model
     use HasFactory;
 
     protected $fillable = [
-      'site_id',
-      'name',
-      'url'
+        'site_id',
+        'name',
+        'path'
     ];
 
     protected $hidden = [
@@ -20,7 +20,8 @@ class Page extends Model
         'updated_at'
     ];
 
-    public function checks() {
+    public function checks()
+    {
         return $this->hasMany(Check::class);
     }
 }
