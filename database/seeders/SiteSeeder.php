@@ -22,20 +22,20 @@ class SiteSeeder extends Seeder
         User::find(1)->sites()->create([
             'name' => 'Вконтакте',
             'url' => 'vk.com',
-            'last_check' => $date->now(),
+            'last_check' => $date->now()->subMinutes(30),
             'status' => true
         ]);
 
         User::find(1)->sites()->create([
             'name' => 'Одноклассники',
             'url' => 'ok.ru',
-            'last_check' => $date->now(),
+            'last_check' => $date->now()->subMinutes(30),
             'status' => false
         ]);
         User::find(1)->sites()->create([
             'name' => 'Ютуб',
             'url' => 'youtube.com',
-            'last_check' => $date->now(),
+            'last_check' => $date->now()->subMinutes(30),
             'status' => false
         ]);
     }
