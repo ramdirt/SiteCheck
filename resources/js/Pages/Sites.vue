@@ -2,8 +2,8 @@
 Head(title="Сайты")
 
 BreezeAuthenticatedLayout
-  .container.mt-4.lg__flex.lg__space-x-8
-    section.w-96
+  .container.mt-4.lg__flex.gap-4.justify-center
+    section.w-full.sx__max-w-lg.lg__max-w-2xl.lg__w-96
       Card.relative.mb-4.rounded-xl
         h3.mb-4.text-lg.font-semibold Добавить сайт
 
@@ -14,13 +14,13 @@ BreezeAuthenticatedLayout
             Input(placeholder="example.com", v-model="form.url")
 
           .flex.justify-end
-            Button(type="primary", @click="submit") Добавить
-      Card.relative.mb-4.rounded-xl
+            Button(type="primary", @click="submit", icon="md-add-circle") Добавить
+      Card.relative.mb-4.rounded-xl(v-if="is_admin()")
         h3.text-lg.font-semibold Запустить проверку
         p.mb-2 для всех пользователей
-        Button(type="success", @click="start_check") Запустить
+        Button(type="success", @click="start_check", icon="md-play") Запустить
 
-    section.w-full
+    section.w-full.sx__max-w-lg.lg__max-w-2xl
       Card.relative.mb-4.rounded-xl
         h3.mb-4.text-lg.font-semibold Добавленные сайты
 
@@ -29,11 +29,13 @@ BreezeAuthenticatedLayout
 
 <script setup>
 import { useForm, usePage, Link } from "@inertiajs/inertia-vue3";
+import { Button } from "view-ui-plus";
 
 const props = usePage().props.value;
 
 const user = props.auth.user;
 const sites = props.sites;
+const is_admin = () => user.is_admin === 1;
 
 const table = {
   columns: [
@@ -57,19 +59,24 @@ const table = {
     {
       title: "Последняя проверка",
       key: "last_check",
+      width: 200,
+      render: (h, { row }) => {
+        return h("p", formatDate(row.last_check));
+      },
     },
     {
-      title: "Подробнее",
+      title: "Действия",
       key: "detail",
       render: (h, { row }) => {
         return h("div", [
           h(
-            Link,
+            Button,
             {
-              // TODO: Указать правильный роут когда будет контроллер с страницами
-              href: route("sites.show", { id: row.id }),
+              type: "primary",
+              icon: "md-information-circle",
+              to: route("sites.show", { id: row.id }),
             },
-            () => [h("span", "Подробнее...")]
+            "Подробнее"
           ),
         ]);
       },
@@ -91,6 +98,8 @@ const rules = {
 const start_check = () => {
   return axios.get(route("overseer"));
 };
+
+const formatDate = (date) => new Date(date).toLocaleTimeString();
 
 const color_status = (status) => {
   if (status !== 1) {

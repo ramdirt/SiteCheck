@@ -12,12 +12,12 @@ class Page extends Model
     protected $fillable = [
         'site_id',
         'name',
-        'path'
+        'path',
+        'updated_at',
     ];
 
     protected $hidden = [
         'created_at',
-        'updated_at'
     ];
 
     public function checks()

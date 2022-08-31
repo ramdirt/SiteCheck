@@ -18,7 +18,7 @@ const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
     <div class="min-h-screen bg-gray-100">
       <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="container px-4 max-w-4xl">
+        <div class="container px-4 max-w-5xl">
           <div class="flex justify-between h-16">
             <div class="flex">
               <!-- Logo -->
