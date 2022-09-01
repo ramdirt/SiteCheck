@@ -2,9 +2,9 @@
 Head(title="Сайты")
 
 BreezeAuthenticatedLayout
-  .container.mt-4.max-w-6xl
-    Button.ml-2.ml-10(:to="route('sites.index')") Назад
-  .container.mt-4.flex.gap-4.flex-wrap.justify-center
+  .container.mt-4.flex-row.gap-4.justify-start.max-w-6xl
+    Button.ml-2.lg__ml-0(:to="route('sites.index')") Назад
+  .container.mt-4.lg__flex.gap-4.justify-between.max-w-6xl
     section.w-full.sx__max-w-lg.lg__max-w-2xl.lg__w-96
       Card.relative.mb-4.rounded-xl
         h3.mb-4.text-lg.font-semibold Добавить страницу
@@ -18,7 +18,7 @@ BreezeAuthenticatedLayout
           .flex.justify-end
             Button(type="primary", @click="submit") Добавить
 
-    section.w-full.sx__max-w-lg.lg__max-w-2xl
+    section.w-full.sx__max-w-lg.lg__max-w-3xl
       Card.relative.mb-4.rounded-xl
         h3.mb-4.text-lg.font-semibold Страницы сайта
 

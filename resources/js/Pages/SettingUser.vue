@@ -23,9 +23,9 @@ BreezeAuthenticatedLayout
                 :selected="item.value === user.interval"
               ) {{ item.label }}
           FormItem(label="Каналы получения отчетов")
-            CheckboxGroup(v-model="form.checkbox")
-              Checkbox(label="Почта")
-              Checkbox(label="Телеграм")
+            CheckboxGroup(v-model="form.report")
+              Checkbox(label="email") Почта
+              Checkbox(label="telegram") Телеграм
 
           .flex.justify-end
             Button(
@@ -45,7 +45,7 @@ const form = useForm({
   email: user.email,
   interval: user.interval,
   telegram_id: user.telegram_id,
-  checkbox: [],
+  report: [],
 });
 
 const rules = {
@@ -55,16 +55,17 @@ const rules = {
 
 const intervalList = [
   {
-    value: 1,
-    label: "1 Минуты",
-  },
-  {
     value: 5,
     label: "5 Минут",
+  },
+  {
+    value: 15,
+    label: "15 Минут",
   },
 ];
 
 const submit = () => {
+  console.log(form.report);
   form.put(route("setting.update", { id: user.id }));
 };
 </script>
