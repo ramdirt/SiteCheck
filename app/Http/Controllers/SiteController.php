@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Queries\QueryBuilderPages;
 use App\Queries\QueryBuilderSites;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class SiteController extends Controller
 {
@@ -61,8 +62,8 @@ class SiteController extends Controller
             'status' => false
         ]);
 
-        if (Site::where('url', '=', $request->url)) {
-            return redirect()->route('sites.index')->with('success', 'Запись успешно добавлена');
+        if (Site::where('url', '!=', $request->url)) {
+            return Redirect::route('sites.index')->with('success', 'Запись успешно добавлена');
         }
 
         return back()->with('error', 'Ошибка добавления');
