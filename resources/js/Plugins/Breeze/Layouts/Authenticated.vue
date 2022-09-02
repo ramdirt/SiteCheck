@@ -18,7 +18,7 @@ const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
     <div class="min-h-screen bg-gray-100">
       <nav class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="container px-4 max-w-4xl">
+        <div class="container px-4 max-w-5xl">
           <div class="flex justify-between h-16">
             <div class="flex">
               <!-- Logo -->
@@ -204,7 +204,7 @@ const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
 
       <!-- Page Heading -->
       <header class="bg-white shadow" v-if="$slots.header">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <slot name="header" />
         </div>
       </header>

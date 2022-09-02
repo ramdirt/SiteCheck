@@ -2,38 +2,37 @@
 Head(title="Сайты")
 
 BreezeAuthenticatedLayout
-  .container.mt-4.lg__flex.lg__space-x-8
-    section.w-96
+  .container.mt-4.flex-row.gap-4.justify-start.max-w-6xl
+    Button.ml-2.lg__ml-0(:to="route('sites.index')") Назад
+  .container.mt-4.lg__flex.gap-4.justify-between.max-w-6xl
+    section.w-full.sx__max-w-lg.lg__max-w-2xl.lg__w-96
       Card.relative.mb-4.rounded-xl
-        h3.mb-4.text-lg.font-semibold Добавить сайт
+        h3.mb-4.text-lg.font-semibold Добавить страницу
 
         Form(:model="form", :rules="rules")
           FormItem(prop="name")
-            Input(placeholder="Введите название сайта", v-model="form.name")
+            Input(placeholder="Название страницы", v-model="form.name")
           FormItem(prop="url")
-            Input(placeholder="https://example.com", v-model="form.url")
+            Input(placeholder="/адрес_страницы", v-model="form.url")
 
           .flex.justify-end
             Button(type="primary", @click="submit") Добавить
-      Card.relative.mb-4.rounded-xl
-        h3.text-lg.font-semibold Запустить проверку
-        p.mb-2 для всех пользователей
-        Button(type="success", @click="start_check") Запустить
 
-    section.w-full
+    section.w-full.sx__max-w-lg.lg__max-w-3xl
       Card.relative.mb-4.rounded-xl
-        h3.mb-4.text-lg.font-semibold Добавленные сайты
+        h3.mb-4.text-lg.font-semibold Страницы сайта
 
         Table(:columns="table.columns", :data="table.data")
 </template>
 
 <script setup>
-import { useForm, usePage, Link } from "@inertiajs/inertia-vue3";
+import { useForm, usePage } from "@inertiajs/inertia-vue3";
+import { Button } from "view-ui-plus";
 
 const props = usePage().props.value;
 
 const user = props.auth.user;
-const sites = props.sites;
+const pages = props.pages;
 
 const table = {
   columns: [
@@ -56,40 +55,43 @@ const table = {
     },
     {
       title: "Последняя проверка",
-      key: "last_check",
+      key: "updated_at",
+      render: (h, { row }) => {
+        return h("p", formatDate(row.updated_at));
+      },
     },
     {
-      title: "Подробнее",
-      key: "detail",
+      title: "Действия",
+      key: "action",
+      width: 120,
       render: (h, { row }) => {
         return h("div", [
-          h(
-            Link,
-            {
-              // TODO: Указать правильный роут когда будет контроллер с страницами
-              href: route("sites.index", { id: row.id }),
-            },
-            () => [h("span", "Подробнее...")]
-          ),
+          h(Button, {
+            type: "danger",
+            class: "mr-1",
+            icon: "md-trash",
+            to: "google.com",
+          }),
+          h(Button, {
+            type: "primary",
+            icon: "md-hammer",
+            to: "google.com",
+          }),
         ]);
       },
     },
   ],
-  data: sites,
+  data: pages,
 };
 
 const form = useForm({
   name: "",
-  url: "",
+  path: "",
 });
 
 const rules = {
   name: [{ required: true }],
-  email: [{ required: true }],
-};
-
-const start_check = () => {
-  return axios.get(route("overseer"));
+  path: [{ required: true }],
 };
 
 const color_status = (status) => {
@@ -99,6 +101,8 @@ const color_status = (status) => {
     return "rgb(34 197 94)";
   }
 };
+
+const formatDate = (date) => new Date(date).toLocaleTimeString();
 
 const submit = () => {
   form.post(route("sites.store"), {

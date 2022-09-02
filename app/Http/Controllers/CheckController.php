@@ -2,59 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Check;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CheckController extends Controller
 {
-    /**
-     * Get all checks for specific page
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function index(Request $request): JsonResponse
+    public function __invoke($site)
     {
-        $pageId = $request->get('page_id');
-        return new JsonResponse([
-            'status' => true,
-            'pages' => Check::query()
-                ->where('page_id', '=', $pageId)
-                ->get()
-        ]);
-    }
+        $check_dns = checkdnsrr($site);
 
-    /**
-     * Create new check or update existing
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function update(Request $request): JsonResponse
-    {
-        $page = $request->get('page');
+        if ($check_dns === true) {
+            $response = Http::retry(3, 500, throw: false)->get($site);
+            if ($response->status() === 200) {
+                return 'true';
+            }
+        } else {
+            return 'false';
+        }
 
-        Check::query()->updateOrCreate([
-            'id' => $page['id']
-        ], [
-            $page
-        ]);
-
-        return new JsonResponse(['status' => true]);
-    }
-
-    /**
-     * Delete check
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function delete(Request $request): JsonResponse
-    {
-        $id = $request->get('id');
-        Check::query()->whereKey($id)->delete();
-
-        return new JsonResponse(['status' => true]);
+        return 'false';
     }
 }

@@ -10,12 +10,18 @@ class Page extends Model
     use HasFactory;
 
     protected $fillable = [
-      'site_id',
-      'name',
-      'url'
+        'site_id',
+        'name',
+        'path',
+        'updated_at',
     ];
 
-    public function checks() {
+    protected $hidden = [
+        'created_at',
+    ];
+
+    public function checks()
+    {
         return $this->hasMany(Check::class);
     }
 }
