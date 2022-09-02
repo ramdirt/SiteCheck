@@ -74,11 +74,13 @@ class SettingController extends Controller
             'name' => ['required'],
             'email' => ['required'],
             'interval' => ['required'],
-            'telegram_id' => ['numeric']
+            'telegram_id' => ['numeric'],
+            'report_telegram' => ['required'],
+            'report_email' => ['required'],
         ]);
 
 
-        $validated = $request->only('name', 'email', 'interval', 'telegram_id');
+        $validated = $request->only('name', 'email', 'interval', 'telegram_id', 'report_telegram', 'report_email');
         $user = User::find($id);
         $user->update($validated);
 
