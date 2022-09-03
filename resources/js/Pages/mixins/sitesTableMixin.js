@@ -1,4 +1,4 @@
-import { Button } from "view-ui-plus";
+import { Button, Message } from "view-ui-plus";
 import { usePage } from "@inertiajs/inertia-vue3";
 
 
@@ -44,14 +44,18 @@ export default function () {
             title: "Действия",
             key: "detail",
             render: (h, { row }) => {
-              return h("div", [
+              return h("div", {
+                class: 'flex gap-2'
+              },[
                 h(
                   Button,
                   {
-                    class:"hidden",
-                    type: "primary",
-                    icon: "md-information-circle",
-                    to: route("sites.show", { id: row.id }),
+                    type: "error",
+                    icon: "md-trash",
+                    onClick: () => {
+                      // axios.delete(route('sites.destroy', { id: row.id} ))
+                      Message.success('Запись удалена');
+                    }
                   },
                 ),
               ]);
