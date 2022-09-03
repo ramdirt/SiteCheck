@@ -75,14 +75,9 @@ class SiteController extends Controller
      * @param  int  $id
      * @return \Inertia\Response
      */
-    public function show(QueryBuilderPages $pages, $id)
+    public function show()
     {
-        return Inertia::render(
-            'Pages',
-            [
-                'pages' => $pages->getPagesToSiteById($id)
-            ]
-        );
+        return 'pages';
     }
 
     /**

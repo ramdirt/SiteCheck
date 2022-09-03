@@ -20,7 +20,7 @@ BreezeAuthenticatedLayout
               @click="submit",
               icon="md-add-circle"
             ) Добавить
-      Card.relative.mb-4.rounded-xl(v-if="is_admin()")
+      Card.relative.mb-4.rounded-xl(v-if="is_admin")
         h3.text-lg.font-semibold Запустить проверку
         p.mb-2 для всех пользователей
         Button(type="success", @click="start_check", icon="md-play") Запустить
@@ -34,14 +34,14 @@ BreezeAuthenticatedLayout
 
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
-import sitesMixin from "./mixins/sitesMixin";
+import sitesTableMixin from "./mixins/sitesTableMixin";
 import sitesFormMixin from "./mixins/sitesFormMixin";
 
-const table = sitesMixin();
+const table = sitesTableMixin();
 const { form, rules, validateForm, submit } = sitesFormMixin();
 
 const props = usePage().props.value;
-const is_admin = () => props.auth.user.is_admin === 1;
+const is_admin = Boolean(props.auth.user.is_admin);
 
 const start_check = () => {
   return axios.get(route("overseer"));
