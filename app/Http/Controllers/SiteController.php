@@ -6,10 +6,10 @@ use App\Models\Site;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Queries\QueryBuilderPages;
 use App\Queries\QueryBuilderSites;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Rules\CheckURL;
 
 class SiteController extends Controller
 {
@@ -49,13 +49,11 @@ class SiteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'url' => 'required',
+            'name' => ['required', 'string'],
+            'url' => ['required', 'string', new CheckURL(),],
         ]);
 
-        $user_id = Auth::id();
-
-        User::find($user_id)->sites()->create([
+        User::find(Auth::id())->sites()->create([
             'name' => $request->name,
             'url' => $request->url,
             'last_check' => NULL,
@@ -63,10 +61,8 @@ class SiteController extends Controller
         ]);
 
         if (Site::where('url', '!=', $request->url)) {
-            return Redirect::route('sites.index')->with('success', 'Запись успешно добавлена');
+            return Redirect::route('sites.index');
         }
-
-        return back()->with('error', 'Ошибка добавления');
     }
 
     /**

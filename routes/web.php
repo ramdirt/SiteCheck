@@ -17,7 +17,6 @@ Route::get('/', function () {
 });
 
 Route::get('/overseer', OverseerController::class)->middleware(['auth', 'verified'])->name('overseer');
-Route::get('/check_site/{site}', CheckController::class)->name('check_site');
 
 Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
 Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
