@@ -8,7 +8,6 @@ BreezeAuthenticatedLayout
         h3.mb-2.text-xl.font-semibold Бесплатный
         List(border, size="small")
           ListItem Не более 1 сайта
-          ListItem Не более 3 ссылок
           ListItem Интервал проверок не реже 2-х раз в сутки
           ListItem Только 1 тип проверки, на доступность
         .flex.justify-end.mt-4.flex-col
@@ -22,7 +21,6 @@ BreezeAuthenticatedLayout
         h3.mb-2.text-xl.font-semibold PRO
         List(border, size="small")
           ListItem Нет ограничения на количество сайтов
-          ListItem Нет ограничения на количество ссылок
           ListItem Интервал проверок до 5 минут
           ListItem Все доступные виды проверок
         .flex.justify-end.mt-4.flex-col
