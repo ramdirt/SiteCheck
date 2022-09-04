@@ -31,6 +31,6 @@ class QueryBuilderSites implements QueryBuilder
 
     public function deleteSite($id)
     {
-        return Site::query()->whereKey($id)->delete();
+        return Site::find($id)->delete();
     }
 }

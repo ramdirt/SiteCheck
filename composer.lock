@@ -4,51 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "afe366643ee46da5d6d89619a1570111",
+    "content-hash": "14302d4f1c0b333f535e679715035e9f",
     "packages": [
-        {
-            "name": "42sol/laravel-vxe-controller",
-            "version": "v1.0-rc.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/42-sol/laravel-vxe-controller.git",
-                "reference": "16be6ee6427d8bdc46ceae33f055f367f65910e3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/42-sol/laravel-vxe-controller/zipball/16be6ee6427d8bdc46ceae33f055f367f65910e3",
-                "reference": "16be6ee6427d8bdc46ceae33f055f367f65910e3",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": ">=8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "VxeController\\Providers\\VxeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "VxeController\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "galitskiyem",
-                    "email": "galitskiyem@askonalife.com"
-                }
-            ],
-            "support": {
-                "issues": "https://github.com/42-sol/laravel-vxe-controller/issues",
-                "source": "https://github.com/42-sol/laravel-vxe-controller/tree/v1.0-rc.2"
-            },
-            "time": "2022-07-18T08:16:14+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.10.2",
@@ -8155,9 +8112,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "42sol/laravel-vxe-controller": 5
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -1,9 +1,7 @@
 <?php
 
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\CheckController;
 use App\Http\Controllers\PlansController;
@@ -18,8 +16,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/overseer', OverseerController::class)->name('overseer');
-Route::get('/check_site/{site}', CheckController::class)->name('check_site');
+Route::get('/overseer', OverseerController::class)->middleware(['auth', 'verified'])->name('overseer');
 
 Route::resource('/setting', SettingController::class)->middleware(['auth', 'verified']);
 Route::resource('/plans', PlansController::class)->middleware(['auth', 'verified']);
