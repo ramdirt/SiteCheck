@@ -25,6 +25,7 @@ class User extends Authenticatable
         'interval',
         'paid',
         'paid_up_to',
+        'limit',
         'telegram_id',
         'report_telegram',
         'report_email'

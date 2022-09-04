@@ -80,9 +80,9 @@ class PlansController extends Controller
 
         $time = Carbon::now()->addMonths(1)->format('Y-m-d');
         $validated['paid_up_to'] = $time;
+        $validated['limit'] = 300;
 
         $user = User::find($id);
-
 
         $user->update($validated);
 
