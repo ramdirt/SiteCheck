@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('interval')->default(1);
             $table->boolean('paid')->default(false);
             $table->timestamp('paid_up_to')->nullable();
+            $table->integer('limit')->default(2);
             $table->boolean('report_telegram')->default(false);
             $table->boolean('report_email')->default(true);
             $table->timestamp('email_verified_at')->nullable();

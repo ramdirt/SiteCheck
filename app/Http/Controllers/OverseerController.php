@@ -10,9 +10,7 @@ class OverseerController extends Controller
     public function __invoke()
     {
         $overseer = new Overseer();
-        $overseer->GetListOfUserSitesToCheck()->CreateTaskForReview();
-        return [
-            'status' => true
-        ];
+
+        return $overseer->CreateTaskForReview();
     }
 }

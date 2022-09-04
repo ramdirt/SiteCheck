@@ -11,8 +11,34 @@ use App\Services\ReportService;
 
 class Overseer
 {
-    public $userInterval;
-    public $userSites;
+    private $userSites;
+    private $carbon;
+
+    public function __construct()
+    {
+        $this->carbon = new Carbon();
+    }
+
+    public function CreateTaskForReview()
+    {
+        $this->GetListOfUserSitesToCheck();
+
+        foreach ($this->userSites as $userSite) {
+            $last_check = $this->carbon->parse($userSite['last_check']);
+            $allowable_time = $last_check->addMinutes($userSite['interval']);
+
+            if ($this->carbon->now()->gt($allowable_time)) {
+                $site = Site::find($userSite['site_id']);
+                dispatch(new AccessTestProcess($site));
+            }
+        }
+
+        $user = User::find($userSite['user_id']);
+
+        $this->updateLimitUser($user);
+        $this->sendReportUser($user);
+    }
+
 
     public function GetListOfUserSitesToCheck()
     {
@@ -23,38 +49,34 @@ class Overseer
                     'site_id' => $site->id,
                     'interval' => $user->interval,
                     'last_check' => $site->last_check,
+                    'limit' => $user->limit,
                 ];
             }
         }
-
-        return $this;
     }
 
-    public function CreateTaskForReview()
+    private function sendReportUser(object $user)
     {
-        $carbon = new Carbon();
-        $report = new ReportService();
-
-        foreach ($this->userSites as $userSite) {
-            $last_check = $carbon->parse($userSite['last_check']);
-            $allowable_time = $last_check->addMinutes($userSite['interval']);
-
-            if ($carbon->now()->gt($allowable_time)) {
-                $site = Site::find($userSite['site_id']);
-                dispatch(new AccessTestProcess($site));
-            }
-        }
-
-        $user = User::find($userSite['user_id']);
+        $report = new ReportService($user);
 
         if ($user->report_telegram) {
-            $report->setUser($user)->generateReport()->sendReportTelegram();
+            $report->sendReportTelegram();
         }
 
         if ($user->report_email) {
-            $report->setUser($user)->generateReport()->sendReportMail();
+            $report->sendReportMail();
         }
+    }
 
-        return true;
+
+    private function updateLimitUser(object $user)
+    {
+        $limit = $user->limit;
+
+        if ($limit > 0) {
+            $user->update([
+                'limit' => $limit - 1
+            ]);
+        }
     }
 }

@@ -12,11 +12,9 @@ class ReportService
     public array $report;
     public object $user;
 
-    public function setUser(object $user)
+    public function __construct(object $user)
     {
         $this->user = $user;
-
-        return $this;
     }
 
     public function generateReport()
@@ -34,18 +32,19 @@ class ReportService
                 ],
             ];
         }
-
-
-        return $this;
     }
 
     public function sendReportMail()
     {
+        $this->generateReport();
+
         Mail::to($this->user->email)->queue(new ReportShipped($this->report));
     }
 
     public function sendReportTelegram()
     {
+        $this->generateReport();
+
         if ($this->user->telegram_id) {
             dispatch(new TelegramSendingProcess($this->user->telegram_id, $this->report));
         }
