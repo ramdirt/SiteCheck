@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Site;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Rules\CheckURL;
 use Illuminate\Http\Request;
 use App\Queries\QueryBuilderSites;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreSiteRequest;
 use Illuminate\Support\Facades\Redirect;
-use App\Rules\CheckURL;
 
 class SiteController extends Controller
 {
@@ -46,23 +47,18 @@ class SiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreSiteRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string'],
-            'url' => ['required', 'string', new CheckURL(),],
-        ]);
+        $validated = $request->validated();
 
         User::find(Auth::id())->sites()->create([
-            'name' => $request->name,
-            'url' => $request->url,
+            'name' => $validated['name'],
+            'url' => $validated['url'],
             'last_check' => NULL,
             'status' => false
         ]);
 
-        if (Site::where('url', '!=', $request->url)) {
-            return Redirect::route('sites.index');
-        }
+        return back();
     }
 
     /**
