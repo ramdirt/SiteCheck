@@ -25,8 +25,8 @@ class Overseer
     {
         $this->getListOfUserSitesToCheck();
         $this->createTaskForReview();
-        $this->updateLimitUser($this->user);
-        $this->sendReportUser($this->user);
+        $this->updateLimitUser();
+        $this->sendReportUser();
     }
 
 
@@ -61,26 +61,27 @@ class Overseer
         }
     }
 
-    private function sendReportUser(object $user)
-    {
-        $report = new ReportService($user);
 
-        if ($user->report_telegram) {
+    private function sendReportUser()
+    {
+        $report = new ReportService($this->user);
+
+        if ($this->user->report_telegram) {
             $report->sendReportTelegram();
         }
 
-        if ($user->report_email) {
+        if ($this->user->report_email) {
             $report->sendReportMail();
         }
     }
 
 
-    private function updateLimitUser(object $user)
+    private function updateLimitUser()
     {
-        $limit = $user->limit;
+        $limit = $this->user->limit;
 
         if ($limit > 0) {
-            $user->update([
+            $this->user->update([
                 'limit' => $limit - 1
             ]);
         }
