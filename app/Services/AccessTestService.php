@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class AccessTestService
 {
-    protected object $site;
+    private object $site;
 
     public function setSite(object $site)
     {

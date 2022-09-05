@@ -17,7 +17,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Plans');
+        return Inertia::render('ThePlans');
     }
 
     /**

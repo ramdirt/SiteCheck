@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class CheckURLService
 {
-    protected string $url;
+    private string $url;
 
     public function __construct(string $url)
     {

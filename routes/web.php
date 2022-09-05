@@ -15,11 +15,13 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/overseer', OverseerController::class)->middleware(['auth', 'verified'])->name('overseer');
 
-Route::resource('/settings', SettingController::class)->middleware(['auth', 'verified']);
-Route::resource('/plans', PlanController::class)->middleware(['auth', 'verified']);
-Route::resource('/sites', SiteController::class)->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/overseer', OverseerController::class);
+    Route::resource('/settings', SettingController::class);
+    Route::resource('/plans', PlanController::class);
+    Route::resource('/sites', SiteController::class);
+});
 
 
 require __DIR__ . '/auth.php';
