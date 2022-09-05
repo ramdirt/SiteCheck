@@ -33,8 +33,9 @@ createInertiaApp({
             .use(Breeze)
             .use(ViewUIPlus, { locale })
             .component("Head", Head)
-            .mount(el);
+            .mount(el)
     },
 });
+
 
 InertiaProgress.init({ color: "#4B5563" });

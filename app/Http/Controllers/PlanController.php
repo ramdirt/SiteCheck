@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdatePlanRequest;
 
-class PlansController extends Controller
+class PlanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class PlansController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Plans');
+        return Inertia::render('ThePlans');
     }
 
     /**
@@ -69,29 +70,17 @@ class PlansController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int  $id)
+    public function update(UpdatePlanRequest $request, int  $id)
     {
-        $request->validate([
-            'paid' => ['required'],
-        ]);
-
-
-        $validated = $request->only('paid');
+        $validated = $request->validated();
 
         $time = Carbon::now()->addMonths(1)->format('Y-m-d');
         $validated['paid_up_to'] = $time;
         $validated['limit'] = 300;
 
-        $user = User::find($id);
+        User::find($id)->update($validated);
 
-        $user->update($validated);
-
-
-        if ($user->save()) {
-            return redirect()->route('plans.index')->with('success', 'Запись успешно обновлена');
-        }
-
-        return back()->with('error', 'Ошибка обновления');
+        return back();
     }
 
     /**

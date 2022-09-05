@@ -11,6 +11,6 @@ class OverseerController extends Controller
     {
         $overseer = new Overseer();
 
-        return $overseer->CreateTaskForReview();
+        return $overseer->run();
     }
 }

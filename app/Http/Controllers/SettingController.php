@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateSettingRequest;
 
 class SettingController extends Controller
 {
@@ -15,7 +16,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('SettingUser');
+        return Inertia::render('TheSettingsUser');
     }
 
     /**
@@ -68,29 +69,13 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateSettingRequest $request, int $id)
     {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required'],
-            'interval' => ['required'],
-            'telegram_id' => ['numeric'],
-            'report_telegram' => ['required'],
-            'report_email' => ['required'],
-        ]);
+        $validated = $request->validated();
 
+        User::find($id)->update($validated);
 
-        $validated = $request->only('name', 'email', 'interval', 'telegram_id', 'report_telegram', 'report_email');
-        $user = User::find($id);
-        $user->update($validated);
-
-
-        if ($user->save()) {
-            return redirect()->route('setting.index')
-                ->with('success', 'Запись успешно обновлена');
-        }
-
-        return back()->with('error', 'Ошибка обновления');
+        return back();
     }
 
     /**

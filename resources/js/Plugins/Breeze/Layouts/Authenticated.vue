@@ -162,8 +162,8 @@ const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
 
           <div class="pt-2 space-y-1">
             <BreezeResponsiveNavLink
-              :href="route('setting.index')"
-              :active="route().current('setting.index')"
+              :href="route('settings.index')"
+              :active="route().current('settings.index')"
             >
               Настройки
             </BreezeResponsiveNavLink>

@@ -11,18 +11,27 @@ use App\Services\ReportService;
 
 class Overseer
 {
-    private $userSites;
-    private $carbon;
+    private array $userSites;
+    private object $carbon;
+    private object $user;
 
     public function __construct()
     {
         $this->carbon = new Carbon();
     }
 
-    public function CreateTaskForReview()
-    {
-        $this->GetListOfUserSitesToCheck();
 
+    public function run()
+    {
+        $this->getListOfUserSitesToCheck();
+        $this->createTaskForReview();
+        $this->updateLimitUser();
+        $this->sendReportUser();
+    }
+
+
+    private function createTaskForReview()
+    {
         foreach ($this->userSites as $userSite) {
             $last_check = $this->carbon->parse($userSite['last_check']);
             $allowable_time = $last_check->addMinutes($userSite['interval']);
@@ -33,14 +42,11 @@ class Overseer
             }
         }
 
-        $user = User::find($userSite['user_id']);
-
-        $this->updateLimitUser($user);
-        $this->sendReportUser($user);
+        $this->user = User::find($userSite['user_id']);
     }
 
 
-    public function GetListOfUserSitesToCheck()
+    private function getListOfUserSitesToCheck()
     {
         foreach (User::all() as $user) {
             foreach ($user->sites as $site) {
@@ -55,26 +61,27 @@ class Overseer
         }
     }
 
-    private function sendReportUser(object $user)
-    {
-        $report = new ReportService($user);
 
-        if ($user->report_telegram) {
+    private function sendReportUser()
+    {
+        $report = new ReportService($this->user);
+
+        if ($this->user->report_telegram) {
             $report->sendReportTelegram();
         }
 
-        if ($user->report_email) {
+        if ($this->user->report_email) {
             $report->sendReportMail();
         }
     }
 
 
-    private function updateLimitUser(object $user)
+    private function updateLimitUser()
     {
-        $limit = $user->limit;
+        $limit = $this->user->limit;
 
         if ($limit > 0) {
-            $user->update([
+            $this->user->update([
                 'limit' => $limit - 1
             ]);
         }

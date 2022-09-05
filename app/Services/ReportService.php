@@ -9,15 +9,16 @@ use Illuminate\Support\Facades\Mail;
 
 class ReportService
 {
-    public array $report;
-    public object $user;
+    private array $report;
+    private object $user;
 
     public function __construct(object $user)
     {
         $this->user = $user;
+        $this->generateReport();
     }
 
-    public function generateReport()
+    private function generateReport()
     {
         foreach ($this->user->sites as $site) {
             $this->report[] = [
@@ -36,15 +37,11 @@ class ReportService
 
     public function sendReportMail()
     {
-        $this->generateReport();
-
         Mail::to($this->user->email)->queue(new ReportShipped($this->report));
     }
 
     public function sendReportTelegram()
     {
-        $this->generateReport();
-
         if ($this->user->telegram_id) {
             dispatch(new TelegramSendingProcess($this->user->telegram_id, $this->report));
         }
