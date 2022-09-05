@@ -15,6 +15,7 @@ class ReportService
     public function __construct(object $user)
     {
         $this->user = $user;
+        $this->generateReport();
     }
 
     private function generateReport()
@@ -36,15 +37,11 @@ class ReportService
 
     public function sendReportMail()
     {
-        $this->generateReport();
-
         Mail::to($this->user->email)->queue(new ReportShipped($this->report));
     }
 
     public function sendReportTelegram()
     {
-        $this->generateReport();
-
         if ($this->user->telegram_id) {
             dispatch(new TelegramSendingProcess($this->user->telegram_id, $this->report));
         }

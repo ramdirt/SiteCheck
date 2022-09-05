@@ -16,7 +16,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('SettingUser');
+        return Inertia::render('TheSettingsUser');
     }
 
     /**

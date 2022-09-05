@@ -24,7 +24,7 @@ class SiteController extends Controller
         $user_id = Auth::user()->id;
 
         return Inertia::render(
-            'Sites',
+            'TheSites',
             [
                 'sites' => $sites->getSitesUserById($user_id),
             ]

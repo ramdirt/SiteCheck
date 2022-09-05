@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Http;
 
 class TelegramBotService
 {
-    private ?int $chat_id = NULL;
-    private ?array $data = NULL;
+    private int $chat_id;
+    private array $data;
 
     public function setChatId(int $chat_id): object
     {
