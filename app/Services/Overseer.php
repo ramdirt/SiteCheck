@@ -11,18 +11,27 @@ use App\Services\ReportService;
 
 class Overseer
 {
-    private $userSites;
-    private $carbon;
+    private array $userSites;
+    private object $carbon;
+    private object $user;
 
     public function __construct()
     {
         $this->carbon = new Carbon();
     }
 
-    public function CreateTaskForReview()
-    {
-        $this->GetListOfUserSitesToCheck();
 
+    public function run()
+    {
+        $this->getListOfUserSitesToCheck();
+        $this->createTaskForReview();
+        $this->updateLimitUser($this->user);
+        $this->sendReportUser($this->user);
+    }
+
+
+    private function createTaskForReview()
+    {
         foreach ($this->userSites as $userSite) {
             $last_check = $this->carbon->parse($userSite['last_check']);
             $allowable_time = $last_check->addMinutes($userSite['interval']);
@@ -33,14 +42,11 @@ class Overseer
             }
         }
 
-        $user = User::find($userSite['user_id']);
-
-        $this->updateLimitUser($user);
-        $this->sendReportUser($user);
+        $this->user = User::find($userSite['user_id']);
     }
 
 
-    public function GetListOfUserSitesToCheck()
+    private function getListOfUserSitesToCheck()
     {
         foreach (User::all() as $user) {
             foreach ($user->sites as $site) {

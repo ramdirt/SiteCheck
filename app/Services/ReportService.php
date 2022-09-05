@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Mail;
 
 class ReportService
 {
-    public array $report;
-    public object $user;
+    private array $report;
+    private object $user;
 
     public function __construct(object $user)
     {
         $this->user = $user;
     }
 
-    public function generateReport()
+    private function generateReport()
     {
         foreach ($this->user->sites as $site) {
             $this->report[] = [
