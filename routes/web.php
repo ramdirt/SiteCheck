@@ -9,7 +9,7 @@ use App\Http\Controllers\OverseerController;
 
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('TheWelcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/overseer', OverseerController::class);
+    Route::get('/overseer', OverseerController::class)->name('overseer');
     Route::resource('/settings', SettingController::class);
     Route::resource('/plans', PlanController::class);
     Route::resource('/sites', SiteController::class);

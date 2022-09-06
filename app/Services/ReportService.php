@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use App\Mail\ReportShipped;
 use App\Jobs\TelegramSendingProcess;
 use Illuminate\Support\Facades\Mail;
