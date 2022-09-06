@@ -54,9 +54,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Site::class, 'user_sites');
     }
-
-    public function limit()
-    {
-        return $this->hasOne(Limit::class);
-    }
 }
