@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Site;
 use App\Models\User;
 use Inertia\Inertia;
-use App\Rules\CheckURL;
 use Illuminate\Http\Request;
 use App\Queries\QueryBuilderSites;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreSiteRequest;
-use Illuminate\Support\Facades\Redirect;
 
 class SiteController extends Controller
 {
