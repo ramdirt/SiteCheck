@@ -9,17 +9,10 @@ use App\Jobs\AccessTestProcess;
 use App\Services\ReportService;
 
 
-class Overseer
+class OverseerService
 {
     private array $userSites;
-    private object $carbon;
     private object $user;
-
-    public function __construct()
-    {
-        $this->carbon = new Carbon();
-    }
-
 
     public function run()
     {
@@ -33,10 +26,10 @@ class Overseer
     private function createTaskForReview()
     {
         foreach ($this->userSites as $userSite) {
-            $last_check = $this->carbon->parse($userSite['last_check']);
+            $last_check = Carbon::parse($userSite['last_check']);
             $allowable_time = $last_check->addMinutes($userSite['interval']);
 
-            if ($this->carbon->now()->gt($allowable_time)) {
+            if (Carbon::now()->gt($allowable_time)) {
                 $site = Site::find($userSite['site_id']);
                 dispatch(new AccessTestProcess($site));
             }

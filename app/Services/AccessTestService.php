@@ -19,7 +19,6 @@ class AccessTestService
     public function run()
     {
         $check_dns = checkdnsrr($this->site->url);
-        $carbon = new Carbon();
 
         if ($check_dns === true) {
             $response = Http::retry(3, 500, throw: false)->get($this->site->url);
@@ -30,7 +29,7 @@ class AccessTestService
             $this->site->status = false;
         }
 
-        $this->site->last_check = $carbon->now();
+        $this->site->last_check = Carbon::now();
         $this->site->update();
 
         return true;

@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Overseer;
-use Illuminate\Http\Request;
+use App\Services\OverseerService;
 
 class OverseerController extends Controller
 {
-    public function __invoke()
+    public function __invoke(OverseerService $overseer)
     {
-        $overseer = new Overseer();
-
         return $overseer->run();
     }
 }
