@@ -1,4 +1,4 @@
-import { Button, Message } from "view-ui-plus";
+import { Button, Message, Modal } from "view-ui-plus";
 import { usePage } from "@inertiajs/inertia-vue3";
 
 
@@ -19,13 +19,14 @@ export default function () {
       {
         title: "Статус",
         width: 85,
+        align: 'center',
         key: "status",
         render: (h, { row }) => {
           return h("div", {
             style: {
               background: color_status(row.status),
             },
-            class: "w-8 h-4 rounded-full border",
+            class: "ml-2 w-8 h-4 rounded-full border",
           });
         },
       },
