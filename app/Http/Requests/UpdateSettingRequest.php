@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSettingRequest extends FormRequest
@@ -23,9 +24,11 @@ class UpdateSettingRequest extends FormRequest
      */
     public function rules()
     {
+        $user_id = Auth::user()->id;
+
         return [
             'name' => ['required'],
-            'email' => ['required'],
+            'email' => ['required', 'email', "unique:users,email,{$user_id}"],
             'interval' => ['required'],
             'telegram_id' => ['numeric'],
             'report_telegram' => ['required'],
