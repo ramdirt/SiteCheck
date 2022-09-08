@@ -6,11 +6,13 @@ Card.relative.mb-4.rounded-xl(v-if="is_admin")
 </template>
     
 <script setup>
+import { Message } from "view-ui-plus";
 import GlobalMixin from "../../Mixins/GlobalMixin";
 
 const { is_admin } = GlobalMixin();
 
 const start_check = () => {
+  Message.success("Проверка успешно запущена");
   return axios.get(route("overseer"));
 };
 </script>

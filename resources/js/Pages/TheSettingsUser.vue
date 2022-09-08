@@ -4,8 +4,8 @@ Head(title="Настройки")
 BreezeAuthenticatedLayout
   .container.mt-4.flex.justify-center
     section
-      Card.relative.mb-4.rounded-xl(class="w-[30rem]")
-        h3.mb-2.text-lg.font-semibold Настройки пользователя
+      Card.relative.mb-4.rounded-xl(class="w-[20rem]")
+        h3.mb-2.text-lg.font-semibold Настройки
 
         Form(ref="addForm", :model="form", :rules="rules")
           FormItem(label="Ваше имя")
@@ -35,6 +35,7 @@ BreezeAuthenticatedLayout
 </template>
 
 <script setup>
+import { Message } from "view-ui-plus";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 
 const user = usePage().props.value.auth.user;
@@ -54,6 +55,7 @@ const rules = {
 };
 
 const intervalList = [
+  // TODO: Сделать получения параметров интервалов с бэка
   {
     value: 5,
     label: "5 Минут",
@@ -65,6 +67,16 @@ const intervalList = [
 ];
 
 const submit = () => {
-  form.put(route("setting.update", { id: user.id }));
+  form.put(route("settings.update", { id: user.id }), {
+    onSuccess: () => {
+      Message.success("Настройки обновлены");
+    },
+    onError: (errors) => {
+      if (errors.email) {
+        return Message.error("Пользователь с такой почтой уже есть");
+      }
+      Message.error("Ошибка обновления настроек");
+    },
+  });
 };
 </script>
