@@ -1,14 +1,8 @@
 <script setup>
-import { usePage } from "@inertiajs/inertia-vue3";
-
-const user = usePage().props.value.auth.user;
-
 const logout = () => {
   axios.post(route("logout"));
   location.reload();
 };
-
-const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
 </script>
 
 <template>
@@ -18,17 +12,19 @@ const paid_up_to = new Date(user.paid_up_to).toLocaleDateString();
         <div class="container px-5 max-w-6xl">
           <div class="flex justify-between">
             <div class="flex items-center">
-              <Link to="/">
+              <Link :to="route('sites.index')">
                 <img src="/images/sitecheck.svg" alt="SiteCheck" />
               </Link>
             </div>
-            <Menu mode="horizontal" :theme="theme" width="220px">
-              <Submenu>
+            <Menu mode="horizontal" width="220px" name="0">
+              <Submenu name="5">
                 <template #title>Меню</template>
-                <MenuItem :to="route('sites.index')">Сайты</MenuItem>
-                <MenuItem :to="route('plans.index')">Оплата</MenuItem>
-                <MenuItem :to="route('settings.index')">Настройки</MenuItem>
-                <MenuItem @click="logout">Выход</MenuItem>
+                <MenuItem name="1" :to="route('sites.index')">Сайты</MenuItem>
+                <MenuItem name="2" :to="route('plans.index')">Оплата</MenuItem>
+                <MenuItem name="3" :to="route('settings.index')"
+                  >Настройки</MenuItem
+                >
+                <MenuItem name="4" @click="logout">Выход</MenuItem>
               </Submenu>
             </Menu>
           </div>

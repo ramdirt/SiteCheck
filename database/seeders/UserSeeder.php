@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
+            'wallet' => 100,
             'interval' => 5,
             'is_admin' => true,
             'telegram_id' => 1053678973
