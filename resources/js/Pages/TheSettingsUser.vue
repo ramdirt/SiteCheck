@@ -35,6 +35,7 @@ BreezeAuthenticatedLayout
 </template>
 
 <script setup>
+import { Message } from "view-ui-plus";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 
 const user = usePage().props.value.auth.user;
@@ -54,6 +55,7 @@ const rules = {
 };
 
 const intervalList = [
+  // TODO: Сделать получения параметров интервалов с бэка
   {
     value: 5,
     label: "5 Минут",
@@ -65,6 +67,16 @@ const intervalList = [
 ];
 
 const submit = () => {
-  form.put(route("setting.update", { id: user.id }));
+  form.put(route("settings.update", { id: user.id }), {
+    onSuccess: () => {
+      Message.success("Настройки обновлены");
+    },
+    onError: (errors) => {
+      if (errors.email) {
+        return Message.error("Пользователь с такой почтой уже есть");
+      }
+      Message.error("Ошибка обновления настроек");
+    },
+  });
 };
 </script>

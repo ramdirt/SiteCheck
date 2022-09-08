@@ -33,6 +33,7 @@ class UserSeeder extends Seeder
             'name' => 'Алексей',
             'email' => 'ramdirt@mail.ru',
             'interval' => 5,
+            'is_admin' => true,
             'password' => bcrypt('ramdirt'),
             'telegram_id' => 1053678973
         ]);

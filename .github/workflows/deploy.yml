@@ -29,7 +29,7 @@ jobs:
 
       - name: установка зависимостей
         run: |
-          composer update --ignore-platform-req=php+ -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+          composer update --ignore-platform-req=php+ -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader --no-dev
           npm ci --force
           npm run build
 
@@ -51,4 +51,4 @@ jobs:
         run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . "${{ secrets.login }}@${{ secrets.host }}:${{ secrets.path_site }}" --exclude node_modules/
 
       - name: проведение миграций
-        run: ssh -i "$HOME/.ssh/key" -o StrictHostKeyChecking=no "${{ secrets.login }}@${{ secrets.host }}" "cd ${{ secrets.path_site }}; /opt/php/8.1/bin/php artisan migrate:fresh --seed"
+        run: ssh -i "$HOME/.ssh/key" -o StrictHostKeyChecking=no "${{ secrets.login }}@${{ secrets.host }}" "cd ${{ secrets.path_site }}; /opt/php/8.1/bin/php artisan migrate:fresh --seed; /opt/php/8.1/bin/php artisan config:cache"
