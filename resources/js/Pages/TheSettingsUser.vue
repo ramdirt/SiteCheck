@@ -4,8 +4,8 @@ Head(title="Настройки")
 BreezeAuthenticatedLayout
   .container.mt-4.flex.justify-center
     section
-      Card.relative.mb-4.rounded-xl(class="w-[30rem]")
-        h3.mb-2.text-lg.font-semibold Настройки пользователя
+      Card.relative.mb-4.rounded-xl(class="w-[20rem]")
+        h3.mb-2.text-lg.font-semibold Настройки
 
         Form(ref="addForm", :model="form", :rules="rules")
           FormItem(label="Ваше имя")
