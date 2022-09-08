@@ -1,5 +1,5 @@
 <template lang="pug">
-Head(title="Настройки")
+Head(title="Оплата")
 
 BreezeAuthenticatedLayout
   .container.mt-4
