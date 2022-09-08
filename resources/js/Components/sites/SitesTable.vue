@@ -7,6 +7,7 @@ Card.relative.mb-4.rounded-xl
     :data="table.data",
     @on-row-click="handleContextMenu"
   )
+
   p.mt-2 Нажмите на строчку в таблице чтобы получить подробную информацию
   SitesModal(:data-modal="dataModal")
 </template>
