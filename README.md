@@ -1,36 +1,44 @@
-# SiteCheck
+# Сервис мониторинга сайтов "SiteCheck"
+Дипломная работа Резникова Алексея по курсу "Веб-разработчик"
 
-## Getting started
+## Описание сервиса
+Сервис с указанным интервалом в настройках пингует добавленные в ЛК сайты и если сайт не доступен, то отсылает сообщение на почте или в телеграм
 
-### Containering
+## Как запустить проект
+Ниже описанная инструкция написана для запуска на Linux
 
-Before start you should define globally new alias:
+### Перед началом работы
+Рекомендация добавить alias в систему
 
 ```
 alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 ```
 
-or just use `./vendor/bin/sail` to run command in container.
+Чтобы не писать каждый раз `./vendor/bin/sail` для вызова команд в контейнере
 
-### Install
+### Как установить
 
+Клонируем проект и заходим в папку с ним
+
+
+Копируем ENV файл
 ```
 cp .env.example .env
 ```
 
-To make containers work you should be able to call the `composer` and have necessary `php` tools:
+Для запуска composer в системе должен стоять PHP
 
 ```shell
 composer install
 ```
 
-Run containers:
+Как запустить контейнеры
 
 ```shell
 sail up -d
 ```
 
-Finish installation:
+После запуска контейнеров
 
 ```shell
 sail npm ci --force
@@ -39,7 +47,7 @@ sail php artisan migrate:refresh --seed
 sail npm run dev
 ```
 
-error config db
+Если по какой-то причине вы забыли скопировать ENV и стали проблемы с подключением к БД, то выполните
 
 ```shell
 sail down --rmi all -v
