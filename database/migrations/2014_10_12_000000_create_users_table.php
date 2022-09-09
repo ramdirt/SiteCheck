@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('report_telegram')->default(false);
             $table->boolean('report_email')->default(true);
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('last_check')->nullable();
             $table->string('password');
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();

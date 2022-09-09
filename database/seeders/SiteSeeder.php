@@ -23,14 +23,14 @@ class SiteSeeder extends Seeder
             'last_check' => Carbon::now()->subMinutes(30),
             'status' => true
         ]);
-        User::find(1)->sites()->create([
+        User::find(3)->sites()->create([
             'name' => 'Одноклассники',
             'url' => 'ok.ru',
             'last_check' => Carbon::now()->subMinutes(30),
             'status' => false
         ]);
 
-        User::find(1)->sites()->create([
+        User::find(3)->sites()->create([
             'name' => 'Ютуб',
             'url' => 'youtube.com',
             'last_check' => Carbon::now()->subMinutes(30),
