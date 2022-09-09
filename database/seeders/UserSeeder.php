@@ -28,12 +28,14 @@ class UserSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@user.com',
             'interval' => 15,
+            'wallet' => 100,
             'password' => bcrypt('user'),
         ]);
         DB::table('users')->insert([
             'name' => 'Алексей',
             'email' => 'ramdirt@mail.ru',
             'interval' => 5,
+            'wallet' => 100,
             'is_admin' => true,
             'password' => bcrypt('ramdirt'),
             'telegram_id' => 1053678973

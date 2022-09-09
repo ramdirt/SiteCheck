@@ -27,5 +27,5 @@ const user = props.auth.user;
 const userInterval = user.interval;
 
 const now = new Date();
-const remainingTime = (24 - now.getHours()) * 60 + now.getMinutes();
+const remainingTime = (24 - now.getHours()) * 60 + (60 - now.getMinutes());
 </script>
