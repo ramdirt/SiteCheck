@@ -13,8 +13,8 @@ Card.sc__card
 </template>
 
 <script setup>
-import SitesModal from "./SitesModal.vue";
-import sitesTableMixin from "../../Mixins/sites/sitesTableMixin";
+import SitesModal from "@/Components/sites/SitesModal";
+import sitesTableMixin from "@/Mixins/sites/sitesTableMixin";
 import { ref } from "vue";
 
 const table = sitesTableMixin();

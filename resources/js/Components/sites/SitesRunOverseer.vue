@@ -7,7 +7,7 @@ Card.sc__card(v-if="is_admin")
     
 <script setup>
 import { Message } from "view-ui-plus";
-import GlobalMixin from "../../Mixins/GlobalMixin";
+import GlobalMixin from "@/Mixins/GlobalMixin";
 
 const { is_admin } = GlobalMixin();
 

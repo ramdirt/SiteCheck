@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/inertia-vue3";
 import { Message } from "view-ui-plus";
-import GlobalMixin from "../GlobalMixin";
+import GlobalMixin from "@/Mixins/GlobalMixin";
 
 export default function () {
     const { user } = GlobalMixin();

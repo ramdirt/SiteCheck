@@ -18,7 +18,7 @@ Card.sc__card
 </template>
 
 <script setup>
-import sitesFormMixin from "../../Mixins/sites/sitesFormMixin";
+import sitesFormMixin from "@/Mixins/sites/sitesFormMixin";
 
 const { form, rules, validateForm, submit } = sitesFormMixin();
 </script>
