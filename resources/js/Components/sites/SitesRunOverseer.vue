@@ -13,6 +13,6 @@ const { is_admin } = GlobalMixin();
 
 const start_check = () => {
   Message.success("Проверка успешно запущена");
-  return axios.get(route("overseer"));
+  return axios.get(route("chief"));
 };
 </script>
