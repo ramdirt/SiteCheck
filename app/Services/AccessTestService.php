@@ -28,5 +28,7 @@ class AccessTestService
         } else {
             $this->site->status = false;
         }
+
+        $this->site->update();
     }
 }
