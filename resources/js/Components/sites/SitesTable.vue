@@ -1,6 +1,6 @@
 <template lang='pug'>
-Card.relative.rounded-xl
-  h3.mb-4.text-lg.font-semibold Ваши сайты
+Card.sc__card
+  h3.sc__title Ваши сайты
   Table(
     border,
     :columns="table.columns",

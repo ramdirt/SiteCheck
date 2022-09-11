@@ -1,6 +1,6 @@
 <template lang="pug">
-Card.relative.rounded-xl
-  h3.mb-2.text-lg.font-semibold Баланс
+Card.sc__card
+  h3.sc__title Баланс
   h1.text-2xl {{ wallet }} рублей
   p.mt-2 Стоимость проверки 1 сайта: {{ prices[0].price }} рублей
   p.mt-2 Баланса хватит на {{ getNumberOfChecksDependingOnTheWallet }} проверок

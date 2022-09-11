@@ -3,7 +3,7 @@ Head(title="Сайты")
 
 BreezeAuthenticatedLayout
   .container.mt-4.lg__flex.gap-4.justify-between.max-w-6xl
-    section.w-full.sx__max-w-lg.lg__max-w-2xl.lg__w-96.flex.flex-col.gap-4
+    section.w-full.sx__max-w-lg.lg__max-w-2xl.lg__w-96.flex.flex-col.gap-4.mb-4
       SitesUserBalance
       SitesForm
       SitesRunOverseer

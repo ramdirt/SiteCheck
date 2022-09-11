@@ -5,8 +5,8 @@ BreezeAuthenticatedLayout
   .container.mt-4.flex.justify-center
     .flex.flex-col.md__flex-row.gap-4
       SitesUserBalance 
-      Card.relative.rounded-xl
-        h3.mb-2.text-xl.font-semibold Пополнение баланса
+      Card.sc__card
+        h3.sc__title Пополнение баланса
         Form(ref="MakePayment", :model="form", :rules="rules")
           FormItem(label="Сумма платежа")
             Input(placeholder="Введите сумму", v-model="form.payment")

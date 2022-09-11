@@ -1,6 +1,6 @@
 <template lang='pug'>
-Card.relative.rounded-xl
-  h3.mb-4.text-lg.font-semibold Добавить сайт
+Card.sc__card
+  h3.sc__title Добавить сайт
 
   Form(:model="form", :rules="rules")
     FormItem(prop="name")
