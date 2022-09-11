@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->boolean('report_telegram')->default(false);
             $table->boolean('report_email')->default(true);
             $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('last_check')->nullable();
+            $table->timestamp('last_check')->default(Carbon::now());
             $table->string('password');
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();
