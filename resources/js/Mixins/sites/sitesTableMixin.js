@@ -1,9 +1,8 @@
 import { Tag } from "view-ui-plus";
-import { usePage } from "@inertiajs/inertia-vue3";
-import { computed } from "vue"
+import GlobalMixin from "@/Mixins/GlobalMixin";
 
 export default function () {
-  const sites = usePage().props.value.sites;
+  const { user, sites } = GlobalMixin();
 
   const color_status = (status) => {
     return status !== 1 ? 'error' : 'success';
@@ -39,7 +38,7 @@ export default function () {
         title: "Последняя проверка",
         key: "last_check",
         render: (h, { row }) => {
-          return h("p", formatDate(row.last_check));
+          return h("p", formatDate(user.last_check));
         },
       },
     ],

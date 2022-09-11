@@ -12,7 +12,6 @@ class Site extends Model
     protected $fillable = [
         'name',
         'url',
-        'last_check',
         'status',
     ];
 
