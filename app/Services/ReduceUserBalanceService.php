@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Rate;
 
-class ReduceUserBalanceService
+class UserBalanceService
 {
     private object $user;
     private object $rate;

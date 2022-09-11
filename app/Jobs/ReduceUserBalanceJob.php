@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\ReduceUserBalanceService;
+use App\Services\UserBalanceService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,8 +21,8 @@ class ReduceUserBalanceJob implements ShouldQueue
         $this->user = $user;
     }
 
-    public function handle(ReduceUserBalanceService $reduce)
+    public function handle(UserBalanceService $user_balance)
     {
-        $reduce->setUser($this->user)->reduceBalance();
+        $user_balance->setUser($this->user)->reduceBalance();
     }
 }
