@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePlanRequest extends FormRequest
+class UpdateBalanceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdatePlanRequest extends FormRequest
     public function rules()
     {
         return [
-            'paid' => ['required']
+            'payment' => ['required', 'numeric']
         ];
     }
 }

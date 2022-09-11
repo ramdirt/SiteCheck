@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sc__card {
+    @apply relative rounded-xl;
+}
+
+.sc__title {
+    @apply mb-2 text-lg font-semibold;
+}

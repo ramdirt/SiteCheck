@@ -26,7 +26,8 @@ class User extends Authenticatable
         'limit',
         'telegram_id',
         'report_telegram',
-        'report_email'
+        'report_email',
+        'wallet'
     ];
 
     /**
