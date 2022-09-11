@@ -20,7 +20,9 @@ const logout = () => {
               <Submenu name="5">
                 <template #title>Меню</template>
                 <MenuItem name="1" :to="route('sites.index')">Сайты</MenuItem>
-                <MenuItem name="2" :to="route('plans.index')">Оплата</MenuItem>
+                <MenuItem name="2" :to="route('balance.index')"
+                  >Оплата</MenuItem
+                >
                 <MenuItem name="3" :to="route('settings.index')"
                   >Настройки</MenuItem
                 >

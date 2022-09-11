@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdatePlanRequest;
+use App\Http\Requests\UpdateBalanceRequest;
 
-class PlanController extends Controller
+class BalanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class PlanController extends Controller
      */
     public function index()
     {
-        return Inertia::render('ThePlans');
+        return Inertia::render('TheBalance');
     }
 
     /**
@@ -70,14 +69,14 @@ class PlanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePlanRequest $request, int  $id)
+    public function update(UpdateBalanceRequest $request, int $id)
     {
+
         $validated = $request->validated();
 
-        $time = Carbon::now()->addMonths(1)->format('Y-m-d');
-        $validated['limit'] = 300;
-
-        User::find($id)->update($validated);
+        $user = User::find($id);
+        $user->wallet += $validated['payment'];
+        $user->update();
 
         return back();
     }

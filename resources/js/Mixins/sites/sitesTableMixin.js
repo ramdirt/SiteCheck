@@ -25,7 +25,7 @@ export default function () {
         render: (h, { row }) => {
           return h(Tag, {
             color: color_status(row.status)
-          }, text_status(row.status))
+          }, () => text_status(row.status))
         }
       },
       {

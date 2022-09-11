@@ -1,6 +1,6 @@
 <template lang='pug'>
-Card.relative.mb-4.rounded-xl
-  h3.mb-4.text-lg.font-semibold Ваши сайты
+Card.sc__card
+  h3.sc__title Ваши сайты
   Table(
     border,
     :columns="table.columns",
@@ -13,8 +13,8 @@ Card.relative.mb-4.rounded-xl
 </template>
 
 <script setup>
-import SitesModal from "./SitesModal.vue";
-import sitesTableMixin from "../../Mixins/sites/sitesTableMixin";
+import SitesModal from "@/Components/sites/SitesModal";
+import sitesTableMixin from "@/Mixins/sites/sitesTableMixin";
 import { ref } from "vue";
 
 const table = sitesTableMixin();
