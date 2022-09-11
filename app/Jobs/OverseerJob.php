@@ -3,26 +3,26 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use App\Services\AccessTestService;
+use App\Services\OverseerService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class AccessTestProcess implements ShouldQueue
+class OverseerJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public object $site;
+    private object $user;
 
-    public function __construct(object $site)
+    public function __construct($user)
     {
-        $this->site = $site;
+        $this->user = $user;
     }
 
-    public function handle(AccessTestService $test)
+    public function handle(OverseerService $overseer)
     {
-        $test->setSite($this->site)->run();
+        $overseer->setUser($this->user)->startVerify();
     }
 }

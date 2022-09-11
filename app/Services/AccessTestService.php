@@ -16,7 +16,7 @@ class AccessTestService
         return $this;
     }
 
-    public function run()
+    public function start()
     {
         $check_dns = checkdnsrr($this->site->url);
 
@@ -28,10 +28,5 @@ class AccessTestService
         } else {
             $this->site->status = false;
         }
-
-        $this->site->last_check = Carbon::now();
-        $this->site->update();
-
-        return true;
     }
 }

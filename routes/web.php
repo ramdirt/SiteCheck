@@ -3,9 +3,9 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ChiefController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\OverseerController;
 
 
 Route::get('/', function () {
@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/overseer', OverseerController::class)->name('overseer');
+    Route::get('/chief', ChiefController::class)->name('chief');
     Route::resource('/settings', SettingController::class);
     Route::resource('/balance', BalanceController::class);
     Route::resource('/sites', SiteController::class);
