@@ -57,6 +57,10 @@ const rules = {
 const intervalList = [
   // TODO: Сделать получения параметров интервалов с бэка
   {
+    value: 1,
+    label: "1 Минута",
+  },
+  {
     value: 5,
     label: "5 Минут",
   },
