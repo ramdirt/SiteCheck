@@ -1,5 +1,5 @@
 <template lang='pug'>
-Card.relative.mb-4.rounded-xl
+Card.relative.rounded-xl
   h3.mb-4.text-lg.font-semibold Ваши сайты
   Table(
     border,

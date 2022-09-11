@@ -7,7 +7,7 @@ BreezeAuthenticatedLayout
       Card.relative.mb-4.rounded-xl(class="w-[20rem]")
         h3.mb-2.text-lg.font-semibold Настройки
 
-        Form(ref="addForm", :model="form", :rules="rules")
+        Form(ref="SettingUser", :model="form", :rules="rules")
           FormItem(label="Ваше имя")
             Input(placeholder="Имя", v-model="form.name")
           FormItem(label="Почта для получения отчетов")
@@ -40,7 +40,7 @@ import { useForm, usePage } from "@inertiajs/inertia-vue3";
 
 const user = usePage().props.value.auth.user;
 
-const form = useForm({
+const form = useForm("SettingUser", {
   name: user.name,
   email: user.email,
   interval: user.interval,
