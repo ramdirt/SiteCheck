@@ -12,7 +12,6 @@ class UserBalanceService
     public function __construct()
     {
         // TODO: не оптимально, в будущем переделать, так как возможны другие тарифы
-        // TODO: переименовать класс в UserBalance и сделать рефакторинг
         $this->rate = Rate::find(1);
     }
 
