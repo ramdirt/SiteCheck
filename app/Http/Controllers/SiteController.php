@@ -51,7 +51,6 @@ class SiteController extends Controller
         User::find(Auth::id())->sites()->create([
             'name' => $validated['name'],
             'url' => $validated['url'],
-            'last_check' => NULL,
             'status' => false
         ]);
 

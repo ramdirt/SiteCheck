@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Mail\ReportShipped;
-use App\Jobs\TelegramSendingProcess;
+use App\Jobs\TelegramSendingJob;
 use Illuminate\Support\Facades\Mail;
 
 class ReportService
@@ -11,13 +11,15 @@ class ReportService
     private array $report;
     private object $user;
 
-    public function __construct(object $user)
+    public function setUser($user)
     {
         $this->user = $user;
-        $this->generateReport();
+
+        return $this;
     }
 
-    private function generateReport()
+
+    public function generateReport()
     {
         foreach ($this->user->sites as $site) {
             $this->report[] = [
@@ -32,17 +34,20 @@ class ReportService
                 ],
             ];
         }
+
+        return $this;
     }
 
-    public function sendReportMail()
+    public function sendReport()
     {
-        Mail::to($this->user->email)->queue(new ReportShipped($this->report));
-    }
+        if ($this->user->report_telegram) {
+            if ($this->user->telegram_id) {
+                dispatch(new TelegramSendingJob($this->user->telegram_id, $this->report));
+            }
+        }
 
-    public function sendReportTelegram()
-    {
-        if ($this->user->telegram_id) {
-            dispatch(new TelegramSendingProcess($this->user->telegram_id, $this->report));
+        if ($this->user->report_email) {
+            Mail::to($this->user->email)->queue(new ReportShipped($this->report));
         }
     }
 }
