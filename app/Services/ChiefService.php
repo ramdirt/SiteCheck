@@ -8,6 +8,7 @@ use App\Jobs\ReportJob;
 use App\Jobs\OverseerJob;
 use App\Jobs\ReduceUserBalanceJob;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Auth;
 
 
 class ChiefService
@@ -16,10 +17,12 @@ class ChiefService
 
     public function start()
     {
-        foreach (User::all() as $user) {
+        $users = User::all();
+
+        foreach ($users as $user) {
             $this->user = $user;
 
-            if ($this->checkInterval() and $this->checkSitesIsEmpty())
+            if ($this->checkInterval() and $this->checkSitesIsEmpty() or Auth::user()->is_admin)
                 Bus::chain([
                     new OverseerJob($user),
                     new ReportJob($user),

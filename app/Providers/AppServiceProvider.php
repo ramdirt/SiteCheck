@@ -30,10 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(Report::class, ReportService::class);
         $this->app->bind(QueryBuilder::class, QueryBuilderSites::class);
         $this->app->bind(Chief::class, ChiefService::class);
         $this->app->bind(Overseer::class, OverseerService::class);
-        $this->app->bind(Report::class, ReportService::class);
         $this->app->bind(TelegramBot::class, TelegramBotService::class);
         $this->app->bind(UserBalance::class, UserBalanceService::class);
         $this->app->bind(AccessTest::class, AccessTestService::class);

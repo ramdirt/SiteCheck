@@ -25,13 +25,7 @@ class ReportService
             $this->report[] = [
                 'name' => $site->name,
                 'url' => $site->url,
-                'pages' => [
-                    [
-                        'name' => 'Главная',
-                        'url' => '/',
-                        'status' => $site->status
-                    ]
-                ],
+                'status' => $site->status
             ];
         }
 

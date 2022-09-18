@@ -22,7 +22,7 @@ class SiteSeeder extends Seeder
             'url' => 'vk.com',
             'status' => true
         ]);
-        User::find(3)->sites()->create([
+        User::find(2)->sites()->create([
             'name' => 'Одноклассники',
             'url' => 'ok.ru',
             'status' => false
