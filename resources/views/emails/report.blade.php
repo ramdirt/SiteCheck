@@ -1,19 +1,11 @@
 <div>
-    <b>Отчет мониторинга</b>
     @forelse($data as $site)
-        <i>{{ $site['name'] }}</i>
-        <br>
-        @forelse($site['pages'] as $page)
-            @if ($page['status'])
-                <p>{{ $page['name'] }}{{ hex2bin('E29C85') }}</p>
-            @else
-                <p>{{ $page['name'] }}{{ hex2bin('E29D8C') }}</p>
-            @endif
-        @empty
-            <p>Данных нет, проверьте сайт</p>
-        @endforelse
-
+        @if ($site['status'])
+            <p>{{ hex2bin('E29C85') }}&ensp;{{ $site['name'] }}</p>
+        @else
+            <p>{{ hex2bin('E29C85') }}&ensp;{{ $site['name'] }}</p>
+        @endif
     @empty
-        <p>Данных нет, проверьте сайт</p>
+        <p>Нет данных</p>
     @endforelse
 </div>
