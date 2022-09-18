@@ -44,7 +44,7 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
-            'price' => Rate::select('name', 'price')->get()
+            'price' => 0.05
         ]);
     }
 }
