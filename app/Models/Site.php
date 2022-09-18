@@ -20,11 +20,6 @@ class Site extends Model
         'updated_at'
     ];
 
-    public function pages()
-    {
-        return $this->hasMany(Page::class);
-    }
-
     public function user()
     {
         return $this->belongsToMany(User::class, 'user_sites');
