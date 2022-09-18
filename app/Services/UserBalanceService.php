@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Rate;
-
 class UserBalanceService
 {
     private object $user;
@@ -11,11 +9,10 @@ class UserBalanceService
 
     public function __construct()
     {
-        // TODO: не оптимально, в будущем переделать, так как возможны другие тарифы
-        $this->rate = Rate::find(1);
+        $this->rate = 0.05;
     }
 
-    public function setUser($user)
+    public function setUser(object $user): object
     {
         $this->user = $user;
 

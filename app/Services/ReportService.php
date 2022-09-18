@@ -11,7 +11,7 @@ class ReportService
     private array $report;
     private object $user;
 
-    public function setUser($user)
+    public function setUser(object $user): object
     {
         $this->user = $user;
 
@@ -19,7 +19,7 @@ class ReportService
     }
 
 
-    public function generateReport()
+    public function generateReport(): object
     {
         foreach ($this->user->sites as $site) {
             $this->report[] = [
