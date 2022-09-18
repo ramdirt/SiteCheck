@@ -5,7 +5,7 @@ namespace App\Services;
 class UserBalanceService
 {
     private object $user;
-    private object $rate;
+    private float $rate;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class UserBalanceService
     public function reduceBalance()
     {
         $count_user_site = count($this->user->sites);
-        $amount_payment = $count_user_site * $this->rate->price;
+        $amount_payment = $count_user_site * $this->rate;
         $this->user->wallet -= $amount_payment;
         $this->user->update();
     }
