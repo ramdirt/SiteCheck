@@ -9,7 +9,7 @@ class AccessTestService
 {
     private object $site;
 
-    public function setSite(object $site)
+    public function setSite(object $site): object
     {
         $this->site = $site;
 
