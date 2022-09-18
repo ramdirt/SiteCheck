@@ -15,9 +15,11 @@ Card.sc__card
 <script setup>
 import SitesModal from "@/Components/sites/SitesModal";
 import sitesTableMixin from "@/Mixins/sites/sitesTableMixin";
+import GlobalMixin from "@/Mixins/GlobalMixin";
 import { ref } from "vue";
 
 const table = sitesTableMixin();
+const { user } = GlobalMixin();
 
 const dataModal = ref({
   open: null,
@@ -34,6 +36,6 @@ const handleContextMenu = (row) => {
   dataModal.value.url = row.url;
   dataModal.value.id = row.id;
   dataModal.value.status = row.status === 1 ? "Доступен" : "Не доступен";
-  dataModal.value.last_check = `Последняя проверка: ${row.last_check}`;
+  dataModal.value.last_check = `Последняя проверка: ${user.last_check}`;
 };
 </script>

@@ -13,7 +13,7 @@ class CheckURLService
         $this->url = $url;
     }
 
-    public function check()
+    public function check(): Bool
     {
         $check_dns = checkdnsrr($this->url);
 

@@ -9,7 +9,7 @@ class OverseerService
 {
     private object $user;
 
-    public function setUser($user)
+    public function setUser(object $user)
     {
         $this->user = $user;
 

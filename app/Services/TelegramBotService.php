@@ -23,7 +23,7 @@ class TelegramBotService
         return $this;
     }
 
-    public function sendReport(): object
+    public function sendReport()
     {
         $token = env('TG_TOKEN');
         $params = [
@@ -34,7 +34,5 @@ class TelegramBotService
         $url = "https://api.tlgr.org/bot{$token}/sendMessage";
 
         Http::post($url, $params);
-
-        return $this;
     }
 };
