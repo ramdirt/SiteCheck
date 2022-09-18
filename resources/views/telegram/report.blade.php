@@ -1,10 +1,8 @@
-@forelse($data as $site)
-    @if ($site['status'])
-        <p>{{ hex2bin('E29C85') }}&ensp;{{ $site['name'] }}</p>
+<i>Отчет мониторинга</i>
+@foreach ($data as $site)
+    @if ($site['status'] == 1)
+        {{ hex2bin('E29C85') }} {{ $site['name'] }}
     @else
-        <p>{{ hex2bin('E29C85') }}&ensp;{{ $site['name'] }}</p>
+        {{ hex2bin('E29D8C') }} {{ $site['name'] }}
     @endif
-
-@empty
-    <p>Нет данных</p>
-@endforelse
+@endforeach

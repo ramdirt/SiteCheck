@@ -3,7 +3,7 @@
         @if ($site['status'])
             <p>{{ hex2bin('E29C85') }}&ensp;{{ $site['name'] }}</p>
         @else
-            <p>{{ hex2bin('E29C85') }}&ensp;{{ $site['name'] }}</p>
+            <p>{{ hex2bin('E29D8C') }}&ensp;{{ $site['name'] }}</p>
         @endif
     @empty
         <p>Нет данных</p>
