@@ -7,10 +7,12 @@ export const useStore = defineStore('counter', {
         return {
             sites: [],
             props_page: usePage().props.value,
-            token: usePage().props.value.auth.user.api_token,
-            user: usePage().props.value.auth.user,
-            is_admin: Boolean(usePage().props.value.auth.user.is_admin)
         }
+    },
+    getters: {
+        token: (state) => state.props_page.auth.user.api_token,
+        user: (state) => state.props_page.auth.user,
+        is_admin: (state) => Boolean(state.props_page.auth.user.is_admin)
     },
     actions: {
         async getSites() {

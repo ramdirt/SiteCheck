@@ -20,7 +20,7 @@ BreezeAuthenticatedLayout
                 v-for="item in intervalList",
                 :value="item.value",
                 :key="item.key",
-                :selected="item.value === user.interval"
+                :selected="item.value === store.user.interval"
               ) {{ item.label }}
           FormItem(label="Каналы получения отчетов")
             Checkbox(v-model="form.report_email") Почта
