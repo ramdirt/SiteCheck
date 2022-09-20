@@ -1,8 +1,25 @@
 import { Tag } from "view-ui-plus";
 import GlobalMixin from "@/Mixins/GlobalMixin";
+import { reactive, onMounted } from "vue"
 
 export default function () {
-  const { user, sites } = GlobalMixin();
+  const { user, token, sites } = GlobalMixin();
+
+  const state = reactive({
+    sites: [],
+    loading: true
+  });
+
+  onMounted(() => {
+    axios.get('/api/sites', { headers: { "Authorization": `Bearer ${token}` } })
+      .then((response) => {
+        state.sites = response.data;
+        state.loading = false;
+      })
+      .catch((error) => {
+      })
+  })
+
 
   const color_status = (status) => {
     return status !== 1 ? 'error' : 'success';
@@ -43,7 +60,8 @@ export default function () {
       },
     ],
     data: sites,
+    loading: state.loading
   };
 
-  return table
+  return { table, state };
 }

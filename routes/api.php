@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Queries\QueryBuilderSites;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('auth:api')->get('/sites', function (Request $request, QueryBuilderSites $sites) {;
+    $user_id = auth()->user()->id;
+
+    return $sites->getSitesUserById($user_id);
 });

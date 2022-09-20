@@ -5,6 +5,7 @@ Card.sc__card
     border,
     :columns="table.columns",
     :data="table.data",
+    :loading="state.loading",
     @on-row-click="handleContextMenu"
   )
 
@@ -18,7 +19,7 @@ import sitesTableMixin from "@/Mixins/sites/sitesTableMixin";
 import GlobalMixin from "@/Mixins/GlobalMixin";
 import { ref } from "vue";
 
-const table = sitesTableMixin();
+const { table, state } = sitesTableMixin();
 const { user } = GlobalMixin();
 
 const dataModal = ref({

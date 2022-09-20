@@ -28,7 +28,7 @@ class SiteSeeder extends Seeder
             'status' => false
         ]);
 
-        User::find(3)->sites()->create([
+        User::find(2)->sites()->create([
             'name' => 'Ютуб',
             'url' => 'youtube.com',
             'status' => false

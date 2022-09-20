@@ -29,7 +29,6 @@ Route::get('/clear', function () {
     Artisan::call('config:clear');
     Artisan::call('view:clear');
     Artisan::call('route:clear');
-    Artisan::call('backup:clean');
     return "Кэш очищен.";
 });
 
