@@ -20,7 +20,7 @@ BreezeAuthenticatedLayout
                 v-for="item in intervalList",
                 :value="item.value",
                 :key="item.key",
-                :selected="item.value === user.interval"
+                :selected="item.value === store.user.interval"
               ) {{ item.label }}
           FormItem(label="Каналы получения отчетов")
             Checkbox(v-model="form.report_email") Почта
@@ -36,17 +36,18 @@ BreezeAuthenticatedLayout
 
 <script setup>
 import { Message } from "view-ui-plus";
-import { useForm, usePage } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/inertia-vue3";
+import { useStore } from "@/Stores/index";
 
-const user = usePage().props.value.auth.user;
+const store = useStore();
 
 const form = useForm("SettingUser", {
-  name: user.name,
-  email: user.email,
-  interval: user.interval,
-  telegram_id: user.telegram_id,
-  report_email: Boolean(user.report_email),
-  report_telegram: Boolean(user.report_telegram),
+  name: store.user.name,
+  email: store.user.email,
+  interval: store.user.interval,
+  telegram_id: store.user.telegram_id,
+  report_email: Boolean(store.user.report_email),
+  report_telegram: Boolean(store.user.report_telegram),
 });
 
 const rules = {

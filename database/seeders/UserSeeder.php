@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -22,14 +23,8 @@ class UserSeeder extends Seeder
             'wallet' => 100,
             'interval' => 5,
             'is_admin' => true,
-            'telegram_id' => 1053678973
-        ]);
-        DB::table('users')->insert([
-            'name' => 'user',
-            'email' => 'user@user.com',
-            'interval' => 15,
-            'wallet' => 100,
-            'password' => bcrypt('user'),
+            'telegram_id' => 1053678973,
+            'api_token' => Str::random(60)
         ]);
         DB::table('users')->insert([
             'name' => 'Алексей',
@@ -38,7 +33,8 @@ class UserSeeder extends Seeder
             'wallet' => 100,
             'is_admin' => true,
             'password' => bcrypt('ramdirt'),
-            'telegram_id' => 1053678973
+            'telegram_id' => 1053678973,
+            'api_token' => Str::random(60)
         ]);
     }
 }
