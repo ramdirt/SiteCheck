@@ -1,9 +1,10 @@
 import { useForm } from "@inertiajs/inertia-vue3";
 import { Message } from "view-ui-plus";
-import GlobalMixin from "@/Mixins/GlobalMixin";
+import { useStore } from "@/Stores/index";
+
 
 export default function () {
-    const { user } = GlobalMixin();
+    const store = useStore();
 
     const form = useForm("MakePayment", {
         payment: null,
@@ -16,7 +17,7 @@ export default function () {
     };
 
     const submit = () => {
-        form.put(route("balance.update", { id: user.id }), {
+        form.put(route("balance.update", { id: store.user.id }), {
             onSuccess: () => {
                 if (typeof errors === "undefined") {
                     Message.success("Запись добавлена, обновите страницу");
