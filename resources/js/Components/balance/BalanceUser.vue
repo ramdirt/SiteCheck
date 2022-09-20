@@ -9,13 +9,12 @@ Card.sc__card
 </template>
 
 <script setup>
-import GlobalMixin from "../../Mixins/GlobalMixin";
+import { useStore } from "@/Stores/index";
+const store = useStore();
 
-const { user, props_page } = GlobalMixin();
-
-const wallet = props_page.auth.user.wallet;
-const price = props_page.price;
-const userInterval = user.interval;
+const wallet = store.props_page.auth.user.wallet;
+const price = store.props_page.price;
+const userInterval = store.user.interval;
 
 const getNumberOfChecksDependingOnTheWallet = Math.ceil(wallet / price);
 

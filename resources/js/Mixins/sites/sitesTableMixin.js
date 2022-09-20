@@ -1,8 +1,8 @@
 import { Tag } from "view-ui-plus";
-import GlobalMixin from "@/Mixins/GlobalMixin";
+import { useStore } from "@/Stores/index";
 
 export default function () {
-  const { user, sites } = GlobalMixin();
+  const store = useStore();
 
   const color_status = (status) => {
     return status !== 1 ? 'error' : 'success';
@@ -38,12 +38,11 @@ export default function () {
         title: "Последняя проверка",
         key: "last_check",
         render: (h, { row }) => {
-          return h("p", formatDate(user.last_check));
+          return h("p", formatDate(store.user.last_check));
         },
       },
     ],
-    data: sites,
   };
 
-  return table
+  return { table };
 }

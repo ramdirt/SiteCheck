@@ -26,6 +26,10 @@ return new class extends Migration
             $table->boolean('report_email')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_check')->default(Carbon::now());
+            $table->string('api_token', 80)
+                ->unique()
+                ->nullable()
+                ->default(null);
             $table->string('password');
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();
