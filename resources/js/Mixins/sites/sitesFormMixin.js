@@ -1,11 +1,14 @@
 import { useForm } from "@inertiajs/inertia-vue3";
 import { Message } from "view-ui-plus";
 import { computed } from "vue";
+import { useStore } from "@/Stores/index";
 
 export default function () {
   props: {
     errors: Object
   }
+
+  const store = useStore();
 
 
   const form = useForm('CreateSite', {
@@ -57,6 +60,7 @@ export default function () {
       onSuccess: () => {
         if (typeof errors === 'undefined') {
           Message.success("Запись добавлена, обновите страницу");
+          store.getSites();
         }
       },
       onError: (errors) => {

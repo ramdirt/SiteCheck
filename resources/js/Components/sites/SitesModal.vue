@@ -10,6 +10,9 @@ Modal(v-model="dataModal.open", :title="dataModal.title", :closable="true")
 <script setup>
 import { defineProps } from "vue";
 import { Message } from "view-ui-plus";
+import { useStore } from "@/Stores/index";
+
+const store = useStore();
 
 defineProps({
   dataModal: Object,
@@ -17,6 +20,7 @@ defineProps({
 
 const deleteSite = (id) => {
   axios.delete(route("sites.destroy", { id: id }));
-  Message.success("Запись удалена, обновите страницу");
+  store.getSites();
+  Message.success("Запись удалена");
 };
 </script>
