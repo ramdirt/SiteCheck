@@ -53,6 +53,7 @@ const form = useForm("SettingUser", {
 const rules = {
   name: [{ required: true }],
   email: [{ required: true }],
+  interval: [{ required: true }],
 };
 
 const intervalList = [
@@ -72,7 +73,7 @@ const intervalList = [
 ];
 
 const submit = () => {
-  form.put(route("settings.update", { id: user.id }), {
+  form.put(route("settings.update", { id: store.user.id }), {
     onSuccess: () => {
       Message.success("Настройки обновлены");
     },
