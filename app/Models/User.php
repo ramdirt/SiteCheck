@@ -28,7 +28,8 @@ class User extends Authenticatable
         'report_telegram',
         'report_email',
         'last_check',
-        'wallet'
+        'wallet',
+        'enable_reports'
     ];
 
     /**
