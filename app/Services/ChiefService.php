@@ -22,14 +22,15 @@ class ChiefService
         foreach ($users as $user) {
             $this->user = $user;
 
-            if ($this->checkInterval() and $this->checkSitesIsEmpty() or Auth::user()->is_admin)
+            if ($this->checkInterval() and $this->checkSitesIsEmpty() and (bool) $user->enable_reports) {
                 Bus::chain([
                     new OverseerJob($user),
                     new ReportJob($user),
                     new ReduceUserBalanceJob($user),
                 ])->dispatch();
 
-            $this->updateLastCheck();
+                $this->updateLastCheck();
+            }
         }
     }
 

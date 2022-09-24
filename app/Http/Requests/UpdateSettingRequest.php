@@ -33,6 +33,7 @@ class UpdateSettingRequest extends FormRequest
             'telegram_id' => ['numeric'],
             'report_telegram' => ['required'],
             'report_email' => ['required'],
+            'enable_reports' => ['required'],
         ];
     }
 }
