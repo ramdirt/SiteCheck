@@ -4,10 +4,12 @@ Head(title="Настройки")
 BreezeAuthenticatedLayout
   .container.mt-4.flex.justify-center
     section
-      Card.sc__card(class="w-[20rem]")
+      Card.sc__card(class="w-[24rem]")
         h3.sc__title Настройки
 
         Form(ref="SettingUser", :model="form", :rules="rules")
+          FormItem(label="Включить мониторинг")
+            Switch(v-model="form.enable_reports", true-color="#22c55e")
           FormItem(label="Ваше имя")
             Input(placeholder="Имя", v-model="form.name")
           FormItem(label="Почта для получения отчетов")
@@ -42,6 +44,7 @@ import { useStore } from "@/Stores/index";
 const store = useStore();
 
 const form = useForm("SettingUser", {
+  enable_reports: store.user.enable_reports,
   name: store.user.name,
   email: store.user.email,
   interval: store.user.interval,

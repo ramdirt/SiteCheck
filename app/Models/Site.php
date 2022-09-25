@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\SiteFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Site extends Model
 {
@@ -19,6 +20,11 @@ class Site extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected static function newFactory()
+    {
+        return SiteFactory::new();
+    }
 
     public function user()
     {
