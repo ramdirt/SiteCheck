@@ -41,9 +41,12 @@ header.container.max-w-6xl.px-6
             :to="route('register')",
             v-if="!$page.props.canRegister"
           ) Зарегистрироваться
-          MenuItem(
-            name="5",
-            :to="route('logout')",
-            v-if="$page.props.canRegister"
-          ) Выйти
+          MenuItem(name="5", @click="logout", v-if="$page.props.canRegister") Выйти
 </template>
+
+<script setup>
+const logout = () => {
+  axios.post(route("logout"));
+  location.reload();
+};
+</script>
