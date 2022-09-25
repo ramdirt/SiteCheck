@@ -29,7 +29,7 @@ jobs:
 
       - name: установка зависимостей
         run: |
-          composer update --ignore-platform-req=php+ -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader --no-dev
+          composer update --ignore-platform-req=php+ -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
           npm ci --force
           npm run build
 
