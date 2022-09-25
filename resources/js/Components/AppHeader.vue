@@ -39,9 +39,9 @@ header.container.max-w-6xl.px-6
           MenuItem(
             name="4",
             :to="route('register')",
-            v-if="!$page.props.canRegister"
+            v-if="!$page.props.auth.user"
           ) Зарегистрироваться
-          MenuItem(name="5", @click="logout", v-if="$page.props.canRegister") Выйти
+          MenuItem(name="5", @click="logout", v-if="$page.props.auth.user") Выйти
 </template>
 
 <script setup>
