@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        for ($i = 1; $i <= 10; $i++) {
-            User::factory()->has(Site::factory()->count(6)->state(new Sequence(
-                fn ($sequence) => $this->getSiteArray($sequence->index)
-            )))->create();
-        }
+        // for ($i = 1; $i <= 10; $i++) {
+        //     User::factory()->has(Site::factory()->count(6)->state(new Sequence(
+        //         fn ($sequence) => $this->getSiteArray($sequence->index)
+        //     )))->create();
+        // }
 
         $this->call([
             UserSeeder::class,
